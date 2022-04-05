@@ -1,0 +1,36 @@
+---
+title: "audio_check"
+author: "Nick Kathios"
+date: "3/9/2022"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+audio_features <- read.csv(file='../data/audio_features.csv')
+
+participant_clips <- read.csv(file='../data/SSA_table.csv')
+```
+
+```{r}
+audio_features$cleaned <- gsub(".wav", "", audio_features$song_title) %>%
+  tolower()
+participant_clips$cleaned <- tolower(participant_clips$Clip.Title)
+audio_with_clips = merge(audio_features, participant_clips, by.x = "cleaned", by.y="cleaned", all.x = TRUE)
+unique(audio_with_clips$cleaned)
+```
+
+#checks
+```{r}
+aov <- aov(data = audio_with_clips, event_density ~ Time.Period)
+summary(aov)
+
+aov <- aov(data = audio_with_clips, RMS_energy ~ Time.Period)
+summary(aov)
+
+aov <- aov(data = audio_with_clips, pulse_clarity ~ Time.Period)
+summary(aov)
+```

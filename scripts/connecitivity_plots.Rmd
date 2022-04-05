@@ -1,0 +1,152 @@
+---
+title: "connectivity_plots"
+author: "Nick Kathios"
+date: "3/4/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(emmeans)
+```
+
+```{r}
+caudate <- read.csv(file='../data/bilateralcaudate_mpfc_connectivity.csv')
+caudate <- caudate %>%
+  pivot_longer(Childhood:Adulthood, names_to = "Time_Period", values_to = "Connectivity")
+caudate$brain_region <- "Caudate"
+
+nac <- read.csv(file='../data/bilateralnac_mpfc_connectivity.csv')
+nac <- nac %>%
+  pivot_longer(Childhood:Adulthood, names_to = "Time_Period", values_to = "Connectivity")
+nac$brain_region <- "Nucleus Accumbens"
+
+hippocampus <- read.csv(file='../data/bilateralhippocampus_mpfc_connectivity.csv')
+hippocampus <- hippocampus %>%
+  pivot_longer(Childhood:Adulthood, names_to = "Time Period", values_to = "Connectivity")
+hippocampus$brain_region <- "Hippocampus"
+
+auditory <- read.csv(file='../data/auditory_mpfc_connectivity.csv')
+auditory <- auditory %>%
+  pivot_longer(Childhood:Adulthood, names_to = "Time Period", values_to = "Connectivity")
+auditory$brain_region <- "Auditory Network"
+
+mpfc_all <- rbind(caudate, nac, hippocampus, auditory)
+mpfc_all$`Time Period` <- factor(mpfc_all$`Time Period`, levels=c("Childhood", 
+                                                                     "Adolescence",
+                                                                     "Young.Adulthood",
+                                                                     "Adulthood"))
+
+mpfc_all$brain_region <- factor(mpfc_all$brain_region, levels=c("Auditory Network", 
+                                                                     "Nucleus Accumbens",
+                                                                     "Caudate",
+                                                                     "Hippocampus"))
+
+mpfc_all$`Time Period` <- recode(mpfc_all$`Time Period`, Young.Adulthood = "Young\nAdulthood")
+```
+
+```{r}
+## The imported values will be Fisher-transformed correlation coefficients between two ROIs ##
+caudate$Time_Period <- factor(caudate$Time_Period, levels=c("Childhood", 
+                                                                     "Adolescence",
+                                                                     "Young.Adulthood",
+                                                                     "Adulthood"))
+
+aov <- aov(Connectivity ~ Time_Period, data=caudate)
+c1 = c(-1,1,1,-1)
+contrasts(caudate$Time_Period) = c1
+summary(aov, split=list(Time_Period=list("Quadratic"=1)))
+
+summary(aov)
+emm <- emmeans(aov, ~`Time Period`)
+pairs(emm)
+caudate$`Time Period` <- recode(caudate$`Time Period`, Young.Adulthood = "Young\nAdulthood")
+
+#mpfc_connectivity <-
+  ggplot(caudate, aes(x=`Time Period`, y=`Connectivity`)) +
+  #geom_line() +
+  stat_summary(fun = 'mean',geom="line", group=1) +
+  ylab("Correlation Coefficient with mPFC") +
+  stat_summary(fun = 'mean',geom="point") +
+  stat_summary(fun.data = 'mean_se', geom = 'errorbar', width = 0, alpha=0.7) +
+    theme(
+    axis.title.x = element_text(size=16, family="Arial"),
+    axis.title.y = element_text(size=16, family="Arial"),
+    axis.text.y = element_text(size=12, family="Arial"), 
+    axis.text.x = element_text(size=12, family="Arial"),
+    strip.text.x = element_text(size = 12, family="Arial")
+  )
+
+nac$Time_Period <- factor(nac$Time_Period, levels=c("Childhood", 
+                                                                     "Adolescence",
+                                                                     "Young.Adulthood",
+                                                                     "Adulthood"))
+
+aov <- aov(Connectivity ~ Time_Period, data=nac)
+summary(aov)
+c1 = c(-1,1,1,-1)
+contrasts(caudate$Time_Period) = c1
+aov <- aov(Connectivity ~ Time_Period, data=nac)
+summary(aov, split=list(Time_Period=list("Quadratic"=1)))
+emm <- emmeans(aov, ~`Time Period`)
+pairs(emm)
+nac$`Time Period` <- recode(nac$`Time Period`, Young.Adulthood = "Young\nAdulthood")
+
+#mpfc_connectivity <-
+  ggplot(nac, aes(x=`Time Period`, y=`Connectivity`)) +
+  #geom_line() +
+  stat_summary(fun = 'mean',geom="line", group=1) +
+  ylab("Correlation Coefficient with mPFC") +
+  stat_summary(fun = 'mean',geom="point") +
+  stat_summary(fun.data = 'mean_se', geom = 'errorbar', width = 0, alpha=0.7) +
+    theme(
+    axis.title.x = element_text(size=16, family="Arial"),
+    axis.title.y = element_text(size=16, family="Arial"),
+    axis.text.y = element_text(size=12, family="Arial"), 
+    axis.text.x = element_text(size=12, family="Arial"),
+    strip.text.x = element_text(size = 12, family="Arial")
+  )
+
+ggsave("../data/mpfc_connectivityplot.png", mpfc_connectivity, width=14)
+
+auditory$SUBID <- as.factor(auditory$SUBID)
+auditory$`Time Period` <- factor(auditory$`Time Period`, levels=c("Childhood", 
+                                                                     "Adolescence",
+                                                                     "Young.Adulthood",
+                                                                     "Adulthood"))
+auditory$`Time Period` <- recode(auditory$`Time Period`, Young.Adulthood = "Young Adulthood")
+auditory_connectivity <-
+  ggplot(auditory, aes(x=`Time Period`, y=`Connectivity`)) +
+  stat_summary(fun = 'mean',geom="line", group=1) +
+  ylab("Correlation Coefficient with Auditory Network") +
+  stat_summary(fun = 'mean', geom="point") +
+  stat_summary(fun.data = 'mean_se', geom = 'errorbar', width = 0, alpha = 0.7)+
+    theme(
+    axis.title.x = element_text(size=16, family="Arial"),
+    axis.title.y = element_text(size=16, family="Arial"),
+    axis.text.y = element_text(size=12, family="Arial"), 
+    axis.text.x = element_text(size=12, family="Arial")
+  )
+
+ggsave("../data/auditory_connectivityplot.png", auditory_connectivity, width=13)
+
+mpfc_connectivity <-
+ggplot(mpfc_all, aes(x=`Time Period`, y=`Connectivity`)) +
+  stat_summary(fun = 'mean',geom="line", group=1) +
+  ylab("Correlation Coefficient with mPFC") +
+  stat_summary(fun = 'mean', geom="point") +
+  stat_summary(fun.data = 'mean_se', geom = 'errorbar', width = 0, alpha = 0.7)+
+    theme(
+    axis.title.x = element_text(size=16, family="Arial"),
+    axis.title.y = element_text(size=16, family="Arial"),
+    axis.text.y = element_text(size=12, family="Arial"), 
+    axis.text.x = element_text(size=10, family="Arial")
+  ) +
+  facet_grid(~brain_region)
+
+ggsave("../data/mpfc_connectivity_allplot.png", mpfc_connectivity, width=14)
+```

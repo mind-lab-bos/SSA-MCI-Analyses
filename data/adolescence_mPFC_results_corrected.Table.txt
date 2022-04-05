@@ -1,0 +1,192 @@
+Cluster (x,y,z)         size   size p-FWE   size p-FDR   size p-unc   peak p-FWE   peak p-unc
+-02 +54 -10             3522     0.000000     0.000000     0.000000     0.076420     0.000000
+-54 -18 +00             1581     0.000000     0.000000     0.000000     0.741597     0.000016
++54 -18 +06              993     0.000000     0.000000     0.000000     0.687470     0.000013
+-38 -66 -10              443     0.000002     0.000001     0.000000     0.462244     0.000006
+-30 +12 -22              217     0.001073     0.000506     0.000047     0.992108     0.000087
++30 +18 -16              191     0.002417     0.000950     0.000106     0.821539     0.000022
+-08 -58 +14              172     0.004478     0.001342     0.000196     0.780156     0.000018
+-02 -34 +48              168     0.005113     0.001342     0.000224     0.733779     0.000015
+-42 -60 +26              168     0.005113     0.001342     0.000224     0.997439     0.000116
++34 -40 +36              152     0.008780     0.002078     0.000385     0.286304     0.000003
++00 +24 -12               90     0.085703     0.018335     0.003910     0.924591     0.000037
++10 +18 -04               89     0.089138     0.018335     0.004074     0.944134     0.000043
+-18 +56 +24               70     0.190011     0.036217     0.009197     0.995851     0.000104
++36 -60 -04               68     0.205880     0.036217     0.010060     0.803921     0.000020
+-02 -48 +30               68     0.205880     0.036217     0.010060     0.999749     0.000184
+-06 +00 +02               63     0.251469     0.042661     0.012640     0.982052     0.000068
+
+
+
+
+Cluster -2 +54 -10  :
+680 voxels (19%) covering 24% of atlas.SFG l (Superior Frontal Gyrus Left)
+592 voxels (17%) covering 45% of atlas.PaCiG l (Paracingulate Gyrus Left)
+567 voxels (16%) covering 8% of atlas.FP l (Frontal Pole Left)
+321 voxels (9%) covering 33% of atlas.MedFC (Frontal Medial Cortex)
+297 voxels (8%) covering 11% of atlas.AC (Cingulate Gyrus, anterior division)
+264 voxels (7%) covering 3% of atlas.FP r (Frontal Pole Right)
+212 voxels (6%) covering 16% of atlas.PaCiG r (Paracingulate Gyrus Right)
+61 voxels (2%) covering 2% of atlas.MidFG l (Middle Frontal Gyrus Left)
+28 voxels (1%) covering 1% of atlas.SFG r (Superior Frontal Gyrus Right)
+500 voxels (14%) covering 0% of atlas.not-labeled
+
+Cluster -54 -18 +0  :
+361 voxels (23%) covering 26% of atlas.pMTG l (Middle Temporal Gyrus, posterior division Left)
+168 voxels (11%) covering 60% of atlas.aSTG l (Superior Temporal Gyrus, anterior division Left)
+164 voxels (10%) covering 29% of atlas.PT l (Planum Temporale Left)
+135 voxels (9%) covering 40% of atlas.aITG l (Inferior Temporal Gyrus, anterior division Left)
+130 voxels (8%) covering 33% of atlas.pSTG l (Superior Temporal Gyrus, posterior division Left)
+103 voxels (7%) covering 23% of atlas.aMTG l (Middle Temporal Gyrus, anterior division Left)
+82 voxels (5%) covering 23% of atlas.PP l (Planum Polare Left)
+63 voxels (4%) covering 3% of atlas.TP l (Temporal Pole Left)
+32 voxels (2%) covering 10% of atlas.HG l (Heschl's Gyrus Left)
+28 voxels (2%) covering 3% of atlas.pITG l (Inferior Temporal Gyrus, posterior division Left)
+4 voxels (0%) covering 0% of atlas.IC l (Insular Cortex Left)
+3 voxels (0%) covering 1% of atlas.aTFusC l (Temporal Fusiform Cortex, anterior division Left)
+308 voxels (19%) covering 0% of atlas.not-labeled
+
+Cluster +54 -18 +6  :
+220 voxels (22%) covering 16% of atlas.pMTG r (Middle Temporal Gyrus, posterior division Right)
+163 voxels (16%) covering 39% of atlas.pSTG r (Superior Temporal Gyrus, posterior division Right)
+112 voxels (11%) covering 40% of atlas.aSTG r (Superior Temporal Gyrus, anterior division Right)
+88 voxels (9%) covering 20% of atlas.PT r (Planum Temporale Right)
+65 voxels (7%) covering 23% of atlas.HG r (Heschl's Gyrus Right)
+38 voxels (4%) covering 10% of atlas.PP r (Planum Polare Right)
+17 voxels (2%) covering 2% of atlas.CO r (Central Opercular Cortex Right)
+7 voxels (1%) covering 2% of atlas.aMTG r (Middle Temporal Gyrus, anterior division Right)
+283 voxels (28%) covering 0% of atlas.not-labeled
+
+Cluster -38 -66 -10  :
+156 voxels (35%) covering 8% of atlas.iLOC l (Lateral Occipital Cortex, inferior division Left)
+60 voxels (14%) covering 6% of atlas.OFusG l (Occipital Fusiform Gyrus Left)
+13 voxels (3%) covering 2% of atlas.toITG l (Inferior Temporal Gyrus, temporooccipital part Left)
+7 voxels (2%) covering 1% of atlas.TOFusC l (Temporal Occipital Fusiform Cortex Left)
+1 voxels (0%) covering 0% of atlas.sLOC l (Lateral Occipital Cortex, superior division Left)
+206 voxels (47%) covering 0% of atlas.not-labeled
+
+Cluster -30 +12 -22  :
+179 voxels (82%) covering 11% of atlas.FOrb l (Frontal Orbital Cortex Left)
+14 voxels (6%) covering 1% of atlas.IC l (Insular Cortex Left)
+1 voxels (0%) covering 0% of atlas.TP l (Temporal Pole Left)
+23 voxels (11%) covering 0% of atlas.not-labeled
+
+Cluster +30 +18 -16  :
+150 voxels (79%) covering 10% of atlas.FOrb r (Frontal Orbital Cortex Right)
+10 voxels (5%) covering 1% of atlas.IC r (Insular Cortex Right)
+1 voxels (1%) covering 0% of atlas.Putamen r
+30 voxels (16%) covering 0% of atlas.not-labeled
+
+Cluster -8 -58 +14  :
+109 voxels (63%) covering 2% of atlas.Precuneous (Precuneous Cortex)
+20 voxels (12%) covering 1% of atlas.PC (Cingulate Gyrus, posterior division)
+20 voxels (12%) covering 3% of atlas.Ver45 (Vermis 4 5)
+10 voxels (6%) covering 1% of atlas.Cereb45 l (Cerebelum 4 5 Left)
+13 voxels (8%) covering 0% of atlas.not-labeled
+
+Cluster -2 -34 +48  :
+137 voxels (82%) covering 6% of atlas.PC (Cingulate Gyrus, posterior division)
+17 voxels (10%) covering 0% of atlas.PreCG l (Precentral Gyrus Left)
+7 voxels (4%) covering 0% of atlas.Precuneous (Precuneous Cortex)
+7 voxels (4%) covering 0% of atlas.not-labeled
+
+Cluster -42 -60 +26  :
+85 voxels (51%) covering 2% of atlas.sLOC l (Lateral Occipital Cortex, superior division Left)
+58 voxels (35%) covering 6% of atlas.AG l (Angular Gyrus Left)
+25 voxels (15%) covering 0% of atlas.not-labeled
+
+Cluster +34 -40 +36  :
+79 voxels (52%) covering 5% of atlas.SPL r (Superior Parietal Lobule Right)
+1 voxels (1%) covering 0% of atlas.pSMG r (Supramarginal Gyrus, posterior division Right)
+72 voxels (47%) covering 0% of atlas.not-labeled
+
+Cluster +0 +24 -12  :
+70 voxels (78%) covering 6% of atlas.SubCalC (Subcallosal Cortex)
+2 voxels (2%) covering 0% of atlas.FOrb l (Frontal Orbital Cortex Left)
+1 voxels (1%) covering 0% of atlas.Caudate l
+1 voxels (1%) covering 1% of atlas.Accumbens l
+16 voxels (18%) covering 0% of atlas.not-labeled
+
+Cluster +10 +18 -4  :
+44 voxels (49%) covering 8% of atlas.Caudate r
+19 voxels (21%) covering 23% of atlas.Accumbens r
+3 voxels (3%) covering 0% of atlas.SubCalC (Subcallosal Cortex)
+23 voxels (26%) covering 0% of atlas.not-labeled
+
+Cluster -18 +56 +24  :
+62 voxels (89%) covering 1% of atlas.FP l (Frontal Pole Left)
+1 voxels (1%) covering 0% of atlas.SFG l (Superior Frontal Gyrus Left)
+7 voxels (10%) covering 0% of atlas.not-labeled
+
+Cluster +36 -60 -4  :
+19 voxels (28%) covering 2% of atlas.OFusG r (Occipital Fusiform Gyrus Right)
+14 voxels (21%) covering 2% of atlas.TOFusC r (Temporal Occipital Fusiform Cortex Right)
+35 voxels (51%) covering 0% of atlas.not-labeled
+
+Cluster -2 -48 +30  :
+67 voxels (99%) covering 3% of atlas.PC (Cingulate Gyrus, posterior division)
+1 voxels (1%) covering 0% of atlas.Precuneous (Precuneous Cortex)
+
+Cluster -6 +0 +2  :
+21 voxels (33%) covering 2% of atlas.Thalamus l
+10 voxels (16%) covering 3% of atlas.Pallidum l
+3 voxels (5%) covering 1% of atlas.Caudate l
+29 voxels (46%) covering 0% of atlas.not-labeled
+
+All clusters combined :
+681 voxels (8%) covering 24% of atlas.SFG l (Superior Frontal Gyrus Left)
+629 voxels (8%) covering 9% of atlas.FP l (Frontal Pole Left)
+592 voxels (7%) covering 45% of atlas.PaCiG l (Paracingulate Gyrus Left)
+361 voxels (4%) covering 26% of atlas.pMTG l (Middle Temporal Gyrus, posterior division Left)
+321 voxels (4%) covering 33% of atlas.MedFC (Frontal Medial Cortex)
+297 voxels (4%) covering 11% of atlas.AC (Cingulate Gyrus, anterior division)
+264 voxels (3%) covering 3% of atlas.FP r (Frontal Pole Right)
+224 voxels (3%) covering 9% of atlas.PC (Cingulate Gyrus, posterior division)
+220 voxels (3%) covering 16% of atlas.pMTG r (Middle Temporal Gyrus, posterior division Right)
+212 voxels (3%) covering 16% of atlas.PaCiG r (Paracingulate Gyrus Right)
+181 voxels (2%) covering 11% of atlas.FOrb l (Frontal Orbital Cortex Left)
+168 voxels (2%) covering 60% of atlas.aSTG l (Superior Temporal Gyrus, anterior division Left)
+164 voxels (2%) covering 29% of atlas.PT l (Planum Temporale Left)
+163 voxels (2%) covering 39% of atlas.pSTG r (Superior Temporal Gyrus, posterior division Right)
+156 voxels (2%) covering 8% of atlas.iLOC l (Lateral Occipital Cortex, inferior division Left)
+150 voxels (2%) covering 10% of atlas.FOrb r (Frontal Orbital Cortex Right)
+135 voxels (2%) covering 40% of atlas.aITG l (Inferior Temporal Gyrus, anterior division Left)
+130 voxels (2%) covering 33% of atlas.pSTG l (Superior Temporal Gyrus, posterior division Left)
+117 voxels (1%) covering 2% of atlas.Precuneous (Precuneous Cortex)
+112 voxels (1%) covering 40% of atlas.aSTG r (Superior Temporal Gyrus, anterior division Right)
+103 voxels (1%) covering 23% of atlas.aMTG l (Middle Temporal Gyrus, anterior division Left)
+88 voxels (1%) covering 20% of atlas.PT r (Planum Temporale Right)
+86 voxels (1%) covering 2% of atlas.sLOC l (Lateral Occipital Cortex, superior division Left)
+82 voxels (1%) covering 23% of atlas.PP l (Planum Polare Left)
+79 voxels (1%) covering 5% of atlas.SPL r (Superior Parietal Lobule Right)
+73 voxels (1%) covering 6% of atlas.SubCalC (Subcallosal Cortex)
+65 voxels (1%) covering 23% of atlas.HG r (Heschl's Gyrus Right)
+64 voxels (1%) covering 3% of atlas.TP l (Temporal Pole Left)
+61 voxels (1%) covering 2% of atlas.MidFG l (Middle Frontal Gyrus Left)
+60 voxels (1%) covering 6% of atlas.OFusG l (Occipital Fusiform Gyrus Left)
+58 voxels (1%) covering 6% of atlas.AG l (Angular Gyrus Left)
+44 voxels (1%) covering 8% of atlas.Caudate r
+38 voxels (0%) covering 10% of atlas.PP r (Planum Polare Right)
+32 voxels (0%) covering 10% of atlas.HG l (Heschl's Gyrus Left)
+28 voxels (0%) covering 1% of atlas.SFG r (Superior Frontal Gyrus Right)
+28 voxels (0%) covering 3% of atlas.pITG l (Inferior Temporal Gyrus, posterior division Left)
+21 voxels (0%) covering 2% of atlas.Thalamus l
+20 voxels (0%) covering 3% of atlas.Ver45 (Vermis 4 5)
+19 voxels (0%) covering 2% of atlas.OFusG r (Occipital Fusiform Gyrus Right)
+19 voxels (0%) covering 23% of atlas.Accumbens r
+18 voxels (0%) covering 1% of atlas.IC l (Insular Cortex Left)
+17 voxels (0%) covering 0% of atlas.PreCG l (Precentral Gyrus Left)
+17 voxels (0%) covering 2% of atlas.CO r (Central Opercular Cortex Right)
+14 voxels (0%) covering 2% of atlas.TOFusC r (Temporal Occipital Fusiform Cortex Right)
+13 voxels (0%) covering 2% of atlas.toITG l (Inferior Temporal Gyrus, temporooccipital part Left)
+10 voxels (0%) covering 1% of atlas.IC r (Insular Cortex Right)
+10 voxels (0%) covering 3% of atlas.Pallidum l
+10 voxels (0%) covering 1% of atlas.Cereb45 l (Cerebelum 4 5 Left)
+7 voxels (0%) covering 2% of atlas.aMTG r (Middle Temporal Gyrus, anterior division Right)
+7 voxels (0%) covering 1% of atlas.TOFusC l (Temporal Occipital Fusiform Cortex Left)
+4 voxels (0%) covering 1% of atlas.Caudate l
+3 voxels (0%) covering 1% of atlas.aTFusC l (Temporal Fusiform Cortex, anterior division Left)
+1 voxels (0%) covering 0% of atlas.pSMG r (Supramarginal Gyrus, posterior division Right)
+1 voxels (0%) covering 0% of atlas.Putamen r
+1 voxels (0%) covering 1% of atlas.Accumbens l
+1577 voxels (20%) covering 0% of atlas.not-labeled

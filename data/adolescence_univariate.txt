@@ -1,0 +1,47 @@
+Cluster (x,y,z)         size   size p-FWE   size p-FDR   size p-unc   peak p-FWE   peak p-unc
+-54 -21 -03              184     0.000000     0.000000     0.000000     0.000239     0.000000
++54 -21 +00              174     0.000000     0.000000     0.000000     0.018703     0.000000
+
+
+
+
+Cluster -54 -21 -3  :
+25 voxels (14%) covering 15% of atlas.PT l (Planum Temporale Left)
+21 voxels (11%) covering 18% of atlas.pSTG l (Superior Temporal Gyrus, posterior division Left)
+19 voxels (10%) covering 23% of atlas.aSTG l (Superior Temporal Gyrus, anterior division Left)
+11 voxels (6%) covering 3% of atlas.pMTG l (Middle Temporal Gyrus, posterior division Left)
+10 voxels (5%) covering 11% of atlas.HG l (Heschl's Gyrus Left)
+8 voxels (4%) covering 8% of atlas.PP l (Planum Polare Left)
+2 voxels (1%) covering 2% of atlas.aMTG l (Middle Temporal Gyrus, anterior division Left)
+88 voxels (48%) covering 0% of atlas.not-labeled
+
+Cluster +54 -21 +0  :
+25 voxels (14%) covering 30% of atlas.aSTG r (Superior Temporal Gyrus, anterior division Right)
+21 voxels (12%) covering 18% of atlas.pSTG r (Superior Temporal Gyrus, posterior division Right)
+18 voxels (10%) covering 16% of atlas.PP r (Planum Polare Right)
+15 voxels (9%) covering 18% of atlas.HG r (Heschl's Gyrus Right)
+12 voxels (7%) covering 3% of atlas.pMTG r (Middle Temporal Gyrus, posterior division Right)
+4 voxels (2%) covering 3% of atlas.PT r (Planum Temporale Right)
+2 voxels (1%) covering 2% of atlas.aMTG r (Middle Temporal Gyrus, anterior division Right)
+1 voxels (1%) covering 0% of atlas.TP r (Temporal Pole Right)
+1 voxels (1%) covering 0% of atlas.CO r (Central Opercular Cortex Right)
+75 voxels (43%) covering 0% of atlas.not-labeled
+
+All clusters combined :
+25 voxels (7%) covering 30% of atlas.aSTG r (Superior Temporal Gyrus, anterior division Right)
+25 voxels (7%) covering 15% of atlas.PT l (Planum Temporale Left)
+21 voxels (6%) covering 18% of atlas.pSTG r (Superior Temporal Gyrus, posterior division Right)
+21 voxels (6%) covering 18% of atlas.pSTG l (Superior Temporal Gyrus, posterior division Left)
+19 voxels (5%) covering 23% of atlas.aSTG l (Superior Temporal Gyrus, anterior division Left)
+18 voxels (5%) covering 16% of atlas.PP r (Planum Polare Right)
+15 voxels (4%) covering 18% of atlas.HG r (Heschl's Gyrus Right)
+12 voxels (3%) covering 3% of atlas.pMTG r (Middle Temporal Gyrus, posterior division Right)
+11 voxels (3%) covering 3% of atlas.pMTG l (Middle Temporal Gyrus, posterior division Left)
+10 voxels (3%) covering 11% of atlas.HG l (Heschl's Gyrus Left)
+8 voxels (2%) covering 8% of atlas.PP l (Planum Polare Left)
+4 voxels (1%) covering 3% of atlas.PT r (Planum Temporale Right)
+2 voxels (1%) covering 2% of atlas.aMTG r (Middle Temporal Gyrus, anterior division Right)
+2 voxels (1%) covering 2% of atlas.aMTG l (Middle Temporal Gyrus, anterior division Left)
+1 voxels (0%) covering 0% of atlas.TP r (Temporal Pole Right)
+1 voxels (0%) covering 0% of atlas.CO r (Central Opercular Cortex Right)
+163 voxels (46%) covering 0% of atlas.not-labeled
