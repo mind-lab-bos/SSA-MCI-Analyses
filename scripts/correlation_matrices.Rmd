@@ -12,7 +12,7 @@ library(emmeans)
 ```
 
 ```{r}
-childhood <- read.csv(file='../results/ROI-ROI correlations//childhood.csv')
+childhood <- read.csv(file='../results/ROI-ROI correlations/childhood.csv')
 rownames(childhood) <- childhood$X
 childhood$X <- NULL
 childhood <- data.matrix(childhood)
@@ -44,6 +44,9 @@ mean(atan(childhood_mpfc), na.rm=TRUE)
 
 childhood_mpfc_reward <- childhood_mpfc[19:36]
 mean(atan(childhood_mpfc_reward), na.rm=TRUE)
+
+childhood_mpfc_auditory <- childhood_mpfc[1:18]
+mean(atan(childhood_mpfc_auditory), na.rm=TRUE)
 ```
 
 ```{r}
@@ -79,6 +82,9 @@ mean(atan(adolescence_mpfc), na.rm=TRUE)
 
 adolescence_mpfc_reward <- adolescence_mpfc[19:36]
 mean(atan(adolescence_mpfc_reward), na.rm=TRUE)
+
+adolescence_mpfc_auditory <- adolescence$mPFC[1:18]
+mean(atan(adolescence_mpfc_auditory), na.rm=TRUE)
 ```
 
 ```{r}
@@ -105,6 +111,9 @@ mean(atan(ya_mpfc), na.rm=TRUE)
 
 ya_mpfc_reward <- ya_mpfc[19:36]
 mean(atan(ya_mpfc_reward), na.rm=TRUE)
+
+ya_mpfc_auditory <- ya_mpfc[1:18]
+mean(atan(ya_mpfc_auditory), na.rm=TRUE)
 ```
 
 ```{r}
@@ -132,6 +141,8 @@ mean(atan(adulthood_mpfc), na.rm=TRUE)
 adulthood_mpfc_reward <- adulthood_mpfc[19:36]
 mean(atan(adulthood_mpfc_reward), na.rm=TRUE)
 
+adulthood_mpfc_auditory <- adulthood_mpfc[1:18]
+mean(atan(adulthood_mpfc_auditory), na.rm=TRUE)
 
 mpfc <- as.data.frame(cbind(adulthood_mpfc, ya_mpfc, adolescence_mpfc, childhood_mpfc))
 mpfc_corr <- pivot_longer(mpfc, adulthood_mpfc:childhood_mpfc, values_to = "correlation", names_to = "Time")
@@ -163,4 +174,19 @@ aov <- aov(data=mpfc_corr_reward, correlation ~ Time)
 summary(aov)
 
 
+mpfc_auditory <- as.data.frame(cbind(adulthood_mpfc_auditory, ya_mpfc_auditory, adolescence_mpfc_auditory, childhood_mpfc_auditory))
+
+mpfc_corr_auditory <- pivot_longer(mpfc_auditory, adulthood_mpfc_auditory:childhood_mpfc_auditory, values_to = "correlation", names_to = "Time")
+
+mpfc_corr_auditory$Time <- factor(mpfc_corr_auditory$Time, levels = c("childhood_mpfc_auditory", "adolescence_mpfc_auditory", "ya_mpfc_auditory", "adulthood_mpfc_auditory"))
+
+ggplot(mpfc_corr_auditory, aes(x=Time, y=correlation)) +
+  stat_summary(fun.data = 'mean_se', geom = 'errorbar', width = 0.2) +
+  stat_summary(fun.data = 'mean_se', geom = 'pointrange')
+
+aov <- aov(data=mpfc_corr_auditory, correlation ~ Time)
+summary(aov)
+
+emm <- emmeans(aov, ~ Time)
+pairs(emm)
 ```
