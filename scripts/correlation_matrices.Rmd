@@ -1,0 +1,166 @@
+---
+title: "Untitled"
+author: "Nick Kathios"
+date: "4/5/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(corrplot)
+library(emmeans)
+```
+
+```{r}
+childhood <- read.csv(file='../results/ROI-ROI correlations//childhood.csv')
+rownames(childhood) <- childhood$X
+childhood$X <- NULL
+childhood <- data.matrix(childhood)
+childhood <- atan(childhood)
+childhood[is.na(childhood)] <-1 
+
+png(height=1800, width=1800, file="../childhood_correlations.png")
+corrplot(childhood, tl.col = "black", col=colorRampPalette(c("blue","white","red"))(200), tl.pos='n', col.lim = c(-0.5,1), type="upper", method="color",  cl.cex = 3.5)
+dev.off()
+
+childhood_auditory <- childhood[1:18]
+childhood_auditory <-
+  childhood_auditory %>% filter(row(childhood_auditory) == 1:18)
+childhood_auditory$X <- NULL
+childhood_auditory <- data.matrix(childhood_auditory)
+childhood_auditory <- atan(childhood_auditory)
+mean(childhood_auditory, na.rm=TRUE)
+
+childhood_reward <- childhood[19:36]
+childhood_reward <-
+  childhood_reward %>% filter(row(childhood_reward) == 19:36)
+childhood_reward$X <- NULL
+childhood_reward <- data.matrix(childhood_reward)
+childhood_reward <- atan(childhood_reward)
+mean(childhood_reward, na.rm=TRUE)
+
+childhood_mpfc <- childhood$mPFC
+mean(atan(childhood_mpfc), na.rm=TRUE)
+
+childhood_mpfc_reward <- childhood_mpfc[19:36]
+mean(atan(childhood_mpfc_reward), na.rm=TRUE)
+```
+
+```{r}
+adolescence <- read.csv(file='../results/ROI-ROI correlations/adolescence.csv')
+rownames(adolescence) <- adolescence$X
+adolescence$X <- NULL
+adolescence <- data.matrix(adolescence)
+adolescence <- atan(adolescence)
+adolescence[is.na(adolescence)] <- 1
+
+png(height=1800, width=1800, file="../adolescence_correlations.png")
+corrplot(adolescence, tl.col = "black", col=colorRampPalette(c("blue","white","red"))(200), tl.pos='n', col.lim = c(-0.5,1), type="upper", method="color", cl.cex = 3.5)
+dev.off()
+
+adolescence_auditory <- adolescence[1:18]
+adolescence_auditory <-
+  adolescence_auditory %>% filter(row(adolescence_auditory) == 1:18)
+adolescence_auditory$X <- NULL
+adolescence_auditory <- data.matrix(adolescence_auditory)
+adolescence_auditory <- atan(adolescence_auditory)
+mean(adolescence_auditory, na.rm=TRUE)
+
+adolescence_reward <- adolescence[19:36]
+adolescence_reward <-
+  adolescence_reward %>% filter(row(adolescence_reward) == 19:36)
+adolescence_reward$X <- NULL
+adolescence_reward <- data.matrix(adolescence_reward)
+adolescence_reward <- atan(adolescence_reward)
+mean(adolescence_reward, na.rm=TRUE)
+
+adolescence_mpfc <- adolescence$mPFC
+mean(atan(adolescence_mpfc), na.rm=TRUE)
+
+adolescence_mpfc_reward <- adolescence_mpfc[19:36]
+mean(atan(adolescence_mpfc_reward), na.rm=TRUE)
+```
+
+```{r}
+youngadulthood <- read.csv(file='../results/ROI-ROI correlations/youngadulthood.csv')
+rownames(youngadulthood) <- youngadulthood$X
+youngadulthood$X <- NULL
+youngadulthood <- data.matrix(youngadulthood)
+youngadulthood <- atan(youngadulthood)
+youngadulthood[is.na(youngadulthood)] <- 1
+png(height=1800, width=1800, file="../ya_correlations.png")
+corrplot(youngadulthood, tl.pos='n', col=colorRampPalette(c("blue","white","red"))(200), col.lim = c(-0.5,1), type="upper", cl.cex = 3.5,method="color")
+dev.off()
+
+youngadult_auditory <- youngadulthood[1:18]
+youngadult_auditory <-
+  youngadult_auditory %>% filter(row(youngadult_auditory) == 1:18)
+youngadult_auditory$X <- NULL
+youngadult_auditory <- data.matrix(youngadult_auditory)
+youngadult_auditory <- atan(youngadult_auditory)
+mean(youngadult_auditory, na.rm=TRUE)
+
+ya_mpfc <- youngadulthood$mPFC
+mean(atan(ya_mpfc), na.rm=TRUE)
+
+ya_mpfc_reward <- ya_mpfc[19:36]
+mean(atan(ya_mpfc_reward), na.rm=TRUE)
+```
+
+```{r}
+adulthood <- read.csv(file='../results/ROI-ROI correlations/adulthood.csv')
+rownames(adulthood) <- adulthood$X
+adulthood$X <- NULL
+adulthood <- data.matrix(adulthood)
+adulthood <- atan(adulthood)
+adulthood[is.na(adulthood)] <- 1
+png(height=1800, width=1800, file="../adulthood_correlations.png")
+corrplot(adulthood, type="upper", tl.col = "black", col=colorRampPalette(c("blue","white","red"))(200),tl.pos='n', col.lim = c(-0.5,1), cl.cex = 3.5,method="color")
+dev.off()
+
+adult_auditory <- adulthood[1:18]
+adult_auditory <-
+  adult_auditory %>% filter(row(adult_auditory) == 1:18)
+adult_auditory$X <- NULL
+adult_auditory <- data.matrix(adult_auditory)
+adult_auditory <- atan(adult_auditory)
+mean(adult_auditory, na.rm=TRUE)
+
+adulthood_mpfc <- adulthood$mPFC
+mean(atan(adulthood_mpfc), na.rm=TRUE)
+
+adulthood_mpfc_reward <- adulthood_mpfc[19:36]
+mean(atan(adulthood_mpfc_reward), na.rm=TRUE)
+
+
+mpfc <- as.data.frame(cbind(adulthood_mpfc, ya_mpfc, adolescence_mpfc, childhood_mpfc))
+mpfc_corr <- pivot_longer(mpfc, adulthood_mpfc:childhood_mpfc, values_to = "correlation", names_to = "Time")
+
+
+mpfc_corr$Time <- factor(mpfc_corr$Time, levels = c("childhood_mpfc", "adolescence_mpfc", "ya_mpfc", "adulthood_mpfc"))
+
+ggplot(mpfc_corr, aes(x=Time, y=correlation)) +
+  stat_summary(fun.data = 'mean_se', geom = 'errorbar', width = 0.2) +
+  stat_summary(fun.data = 'mean_se', geom = 'pointrange')
+
+aov <- aov(data=mpfc_corr, correlation ~ Time)
+summary(aov)
+
+emm <- emmeans(aov, ~ Time)
+pairs(emm)
+
+mpfc_reward <- as.data.frame(cbind(adulthood_mpfc_reward, ya_mpfc_reward, adolescence_mpfc_reward, childhood_mpfc_reward))
+
+mpfc_corr_reward <- pivot_longer(mpfc_reward, adulthood_mpfc_reward:childhood_mpfc_reward, values_to = "correlation", names_to = "Time")
+
+mpfc_corr_reward$Time <- factor(mpfc_corr_reward$Time, levels = c("childhood_mpfc_reward", "adolescence_mpfc_reward", "ya_mpfc_reward", "adulthood_mpfc_reward"))
+
+ggplot(mpfc_corr_reward, aes(x=Time, y=correlation)) +
+  stat_summary(fun.data = 'mean_se', geom = 'errorbar', width = 0.2) +
+  stat_summary(fun.data = 'mean_se', geom = 'pointrange')
+
+aov <- aov(data=mpfc_corr_reward, correlation ~ Time)
+summary(aov)
+
+
+```
