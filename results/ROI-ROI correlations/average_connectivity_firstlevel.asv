@@ -1,0 +1,116 @@
+%Isolate the auditory-auditory section of the matrix
+young_adulthood_auditory = Z(1:18,1:18,:);
+
+%Isolate the top half of the corr matrix for each liking rating (aud-aud)
+for sub = 1:18
+    
+    temp = young_adulthood_auditory(:,:,sub);
+    young_adulthood_auditory_byparticipant(:,sub) = temp(find(~tril(ones(size(temp)))));
+    young_adulthood_auditory_participant_mean = mean(young_adulthood_auditory_byparticipant);    
+end
+young_adulthood_auditory_participant_mean = young_adulthood_auditory_participant_mean'
+
+%Isolate the reward-reward section of the matrix
+young_adulthood_reward = Z(19:36,19:36,:);
+
+%Isolate the top half of the corr matrix for each liking rating (aud-aud)
+for sub = 1:18
+    
+    temp = young_adulthood_reward(:,:,sub);
+    young_adulthood_reward_byparticipant(:,sub) = temp(find(~tril(ones(size(temp)))));
+    young_adulthood_reward_participant_mean = mean(young_adulthood_reward_byparticipant);    
+end
+young_adulthood_reward_participant_mean = young_adulthood_reward_participant_mean'
+
+%Isolate the auditory-reward section of the matrix
+young_adulthood_reward_auditory = Z(1:18,19:36,:);
+
+%Get the mean for each participant across the matrix (aud-rew)
+for sub = 1:18
+    
+    young_adulthood_auditory_reward_mean(:,sub) = mean(young_adulthood_reward_auditory(:,:,sub), 'all');
+end
+
+young_adulthood_auditory_reward_mean = young_adulthood_auditory_reward_mean'
+
+
+%mpfc - auditory + reward
+young_adulthood_mpfc_auditory_reward=Z(1:36,31,:);
+
+%Get the mean for each participant across the matrix (mpfc-aud/rew)
+for sub = 1:18
+    
+    young_adulthood_mpfc_auditory_reward_mean(:,sub) = nanmean(young_adulthood_mpfc_auditory_reward(:,:,sub), 'all');
+end
+young_adulthood_mpfc_auditory_reward_mean = young_adulthood_mpfc_auditory_reward_mean'
+
+%mpfc - auditory
+young_adulthood_mpfc_auditory=Z(1:18,31,:);
+
+%Get the mean for each participant across the matrix (mpfc-aud/rew)
+for sub = 1:18
+    
+    young_adulthood_mpfc_auditory_mean(:,sub) = nanmean(young_adulthood_mpfc_auditory(:,:,sub), 'all');
+end
+young_adulthood_mpfc_auditory_mean = young_adulthood_mpfc_auditory_mean'
+
+%mpfc - reward
+young_adulthood_mpfc_reward=Z(19:36,31,:);
+
+%Get the mean for each participant across the matrix (mpfc-aud/rew)
+for sub = 1:18
+    
+    young_adulthood_mpfc_reward_mean(:,sub) = nanmean(young_adulthood_mpfc_reward(:,:,sub), 'all');
+end
+young_adulthood_mpfc_reward_mean = young_adulthood_mpfc_reward_mean'
+
+%mpfc - vstr
+young_adulthood_mpfc_nac=Z(29:30,31,:);
+
+%Get the mean for each participant across the matrix (mpfc-aud/rew)
+for sub = 1:18
+    
+    young_adulthood_mpfc_nac_mean(:,sub) = nanmean(young_adulthood_mpfc_nac(:,:,sub), 'all');
+end
+young_adulthood_mpfc_nac_mean = young_adulthood_mpfc_nac_mean'
+
+%mpfc - str
+young_adulthood_mpfc_str=Z([19:20,29:30],31,:);
+
+%Get the mean for each participant across the matrix (mpfc-aud/rew)
+for sub = 1:18
+    
+    young_adulthood_mpfc_str_mean(:,sub) = nanmean(young_adulthood_mpfc_str(:,:,sub), 'all');
+end
+young_adulthood_mpfc_str_mean = young_adulthood_mpfc_str_mean'
+
+%str
+young_adulthood_str=Z(19:20,29:30,:);
+
+%Get the mean for each participant across the matrix
+for sub = 1:18
+    
+    young_adulthood_str_mean(:,sub) = nanmean(young_adulthood_str(:,:,sub), 'all');
+end
+young_adulthood_str_mean = young_adulthood_str_mean'
+
+%str - auditory
+young_adulthood_str_auditory=Z([19:22,29:30], 1:18,:);
+
+%Get the mean for each participant across the matrix
+for sub = 1:18
+    
+    young_adulthood_str_auditory_mean(:,sub) = nanmean(young_adulthood_str_auditory(:,:,sub), 'all');
+end
+young_adulthood_str_auditory_mean = young_adulthood_str_auditory_mean'
+
+writematrix(young_adulthood_auditory_participant_mean, 'young_adulthood_auditory_participant_mean.csv')
+writematrix(young_adulthood_reward_participant_mean, 'young_adulthood_reward_participant_mean.csv')
+writematrix(young_adulthood_auditory_participant_mean, 'young_adulthood_auditory_participant_mean.csv')
+writematrix(young_adulthood_auditory_reward_mean, 'young_adulthood_reward_auditory_mean.csv')
+writematrix(young_adulthood_mpfc_auditory_reward_mean, 'young_adulthood_mpfc_auditory_reward_mean.csv')
+writematrix(young_adulthood_mpfc_auditory_mean, 'young_adulthood_mpfc_auditory_mean.csv')
+writematrix(young_adulthood_mpfc_reward_mean, 'young_adulthood_mpfc_reward_mean.csv')
+writematrix(young_adulthood_mpfc_nac, 'young_adulthood_mpfc_nac.csv')
+writematrix(young_adulthood_mpfc_str_mean, 'young_adulthood_mpfc_str.csv')
+writematrix(young_adulthood_str_auditory_mean, 'young_adulthood_str_auditory_mean.csv')
