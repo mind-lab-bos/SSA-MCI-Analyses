@@ -199,7 +199,7 @@ mpfc_corr <- pivot_longer(mpfc, adulthood_mpfc:childhood_mpfc, values_to = "corr
 
 mpfc_corr$Time <- factor(mpfc_corr$Time, levels = c("childhood_mpfc", "adolescence_mpfc", "ya_mpfc", "adulthood_mpfc"))
 
-mpfc_auditory_mpfc <-
+#mpfc_auditory_mpfc <-
   ggplot(mpfc_corr, aes(x=Time, y=correlation)) +
   stat_summary(fun = 'mean',geom="line", group=1) +
   stat_summary(fun.data = 'mean_se', geom = 'errorbar', width = 0.2) +
