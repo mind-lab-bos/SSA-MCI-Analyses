@@ -25,7 +25,6 @@ adulthood <- read.csv(file='../results/ROI-ROI correlations/adulthood.csv')
 rownames(childhood) <- childhood$X
 childhood$X <- NULL
 childhood <- data.matrix(childhood)
-childhood <- DescTools::FisherZInv(childhood)
 childhood[is.na(childhood)] <-1
 
 png(height=1800, width=1800, file="../childhood_correlations.png")
@@ -68,7 +67,6 @@ childhood_mpfc_auditory <- childhood_mpfc[1:18]
 rownames(adolescence) <- adolescence$X
 adolescence$X <- NULL
 adolescence <- data.matrix(adolescence)
-adolescence <- DescTools::FisherZInv(adolescence)
 adolescence[is.na(adolescence)] <- 1
 
 png(height=1800, width=1800, file="../adolescence_correlations.png")
@@ -111,7 +109,6 @@ adolescence_mpfc_auditory <- adolescence$mPFC[1:18]
 rownames(youngadulthood) <- youngadulthood$X
 youngadulthood$X <- NULL
 youngadulthood <- data.matrix(youngadulthood)
-youngadulthood <- DescTools::FisherZInv(youngadulthood)
 
 youngadulthood[is.na(youngadulthood)] <- 1
 png(height=1800, width=1800, file="../ya_correlations.png")
@@ -153,7 +150,6 @@ ya_mpfc_auditory <- ya_mpfc[1:18]
 rownames(adulthood) <- adulthood$X
 adulthood$X <- NULL
 adulthood <- data.matrix(adulthood)
-adulthood <- DescTools::FisherZInv(adulthood)
 adulthood[is.na(adulthood)] <- 1
 
 png(height=1800, width=1800, file="../adulthood_correlations.png")
