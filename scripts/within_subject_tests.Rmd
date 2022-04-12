@@ -100,9 +100,9 @@ aov <- aov(data=mpfc_auditory, V1 ~ time + Error(SUBID/time))
 summary(aov)
 test <- lmer(V1 ~ time + (1|SUBID), data=mpfc_auditory)
 anova(test)
-test.m <- emmeans(test, ~time)
+test.m <- emmeans::emmeans(test, ~time)
 A2= c(-1, 3, -1, -1)
-contrast(test.m, method = list(A2), lmer.df = "satterthwaite")
+emmeans::contrast(test.m, method = list(A2), lmer.df = "satterthwaite")
 
 
 contrast(test.m, ~time, 'poly') %>%
