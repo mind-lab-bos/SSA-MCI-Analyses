@@ -90,11 +90,23 @@ mpfc_auditory <- rbind(childhood_mpfc_auditory, adolescence_mpfc_auditory,young_
 
 mpfc_auditory$time <- factor(mpfc_auditory$time, levels = c("Childhood", "Adolescence", "Young_Adulthood", "Adulthood"))
 
-ggplot(data=mpfc_auditory, aes(x=time, y=V1)) +
+mpfc_auditory_plot <- 
+  ggplot(data=mpfc_auditory, aes(x=time, y=V1)) +
   stat_summary(fun.data = 'mean_se', geom = 'errorbar', width = 0.2) +
   stat_summary(fun.data = 'mean_se', geom = 'pointrange') +
   scale_x_discrete(labels=c("Childhood (0-11)", "Adolescence (12-18)", "Young\nAdulthood (19-25)",
-                            "Adulthood (26-45)"))
+                            "Adulthood (26-45)")) +
+  ylab("Average Fisher-Transformed Correlation Coefficient") +
+  xlab("Developmental Time Period") +
+        theme(
+    axis.title.x = element_text(size=18, family="Arial",face="bold"),
+    axis.title.y = element_text(size=18, family="Arial", face="bold"),
+    axis.text.y = element_text(size=14, family="Arial"), 
+    axis.text.x = element_text(size=14, family="Arial"),
+    strip.text.x = element_text(size=12,family="Arial")
+  ) 
+
+ggsave("../results/mpfc_auditory_plot.png", plot = mpfc_auditory_plot, width=11)
 
 aov <- aov(data=mpfc_auditory, V1 ~ time + Error(SUBID/time))
 summary(aov)
