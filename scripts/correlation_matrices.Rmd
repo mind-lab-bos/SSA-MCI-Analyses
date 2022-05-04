@@ -112,7 +112,7 @@ youngadulthood <- data.matrix(youngadulthood)
 
 youngadulthood[is.na(youngadulthood)] <- 1
 png(height=1800, width=1800, file="../ya_correlations.png")
-corrplot(youngadulthood, tl.pos='n', col=colorRampPalette(c("blue","white","red"))(200), col.lim = c(-0.5,1), type="upper", cl.cex = 3.5,method="color")
+corrplot(youngadulthood, tl.pos='n', col.lim = c(-0.5,1), col=colorRampPalette(c("blue","white","red"))(200), type="upper", cl.cex = 3.5,method="color")
 dev.off()
 
 youngadulthood <- as.data.frame(youngadulthood)

@@ -16,59 +16,59 @@ library(lmerTest)
 #mpfc-reward/auditory
 childhood_mpfc_auditory_reward <- read.table(file='../results/ROI-ROI correlations/childhood_mpfc_auditory_reward_mean.csv')
 adolescence_mpfc_auditory_reward <- read.table(file='../results/ROI-ROI correlations/adolescence_mpfc_auditory_reward_mean.csv')
-young_adult_mpfc_auditory_reward <- read.table(file='../results/ROI-ROI correlations/young_adulthood_mpfc_auditory_reward_mean.csv')
+youngadulthood_mpfc_auditory_reward <- read.table(file='../results/ROI-ROI correlations/youngadulthood_mpfc_auditory_reward_mean.csv')
 adult_mpfc_auditory_reward <- read.table(file='../results/ROI-ROI correlations/adulthood_mpfc_auditory_reward_mean.csv')
 
 
 childhood_mpfc_auditory <- read.table(file='../results/ROI-ROI correlations/childhood_mpfc_auditory_mean.csv')
 adolescence_mpfc_auditory <- read.table(file='../results/ROI-ROI correlations/adolescence_mpfc_auditory_mean.csv')
-young_adult_mpfc_auditory <- read.table(file='../results/ROI-ROI correlations/young_adulthood_mpfc_auditory_mean.csv')
+youngadulthood_mpfc_auditory <- read.table(file='../results/ROI-ROI correlations/youngadulthood_mpfc_auditory_mean.csv')
 adult_mpfc_auditory <- read.table(file='../results/ROI-ROI correlations/adulthood_mpfc_auditory_mean.csv')
 
 childhood_mpfc_reward <- read.table(file='../results/ROI-ROI correlations/childhood_mpfc_reward_mean.csv')
 adolescence_mpfc_reward <- read.table(file='../results/ROI-ROI correlations/adolescence_mpfc_reward_mean.csv')
-young_adult_mpfc_reward <- read.table(file='../results/ROI-ROI correlations/young_adulthood_mpfc_reward_mean.csv')
+youngadulthood_mpfc_reward <- read.table(file='../results/ROI-ROI correlations/youngadulthood_mpfc_reward_mean.csv')
 adult_mpfc_reward <- read.table(file='../results/ROI-ROI correlations/adulthood_mpfc_reward_mean.csv')
 
 childhood_reward <- read.table(file='../results/ROI-ROI correlations/childhood_reward_participant_mean.csv')
 adolescence_reward <- read.table(file='../results/ROI-ROI correlations/adolescence_reward_participant_mean.csv')
-young_adult_reward <- read.table(file='../results/ROI-ROI correlations/young_adulthood_reward_participant_mean.csv')
+youngadulthood_reward <- read.table(file='../results/ROI-ROI correlations/youngadulthood_reward_participant_mean.csv')
 adult_reward <- read.table(file='../results/ROI-ROI correlations/adulthood_reward_participant_mean.csv')
 
 childhood_mpfc_nac <- read.table(file='../results/ROI-ROI correlations/childhood_mpfc_nac.csv')
 adolescence_mpfc_nac <- read.table(file='../results/ROI-ROI correlations/adolescence_mpfc_nac.csv')
-young_adult_mpfc_nac <- read.table(file='../results/ROI-ROI correlations/young_adulthood_mpfc_nac.csv')
+youngadulthood_mpfc_nac <- read.table(file='../results/ROI-ROI correlations/youngadulthood_mpfc_nac.csv')
 adult_mpfc_nac <- read.table(file='../results/ROI-ROI correlations/adulthood_mpfc_nac.csv')
 
 
 childhood_mpfc_str<- read.table(file='../results/ROI-ROI correlations/childhood_mpfc_str.csv')
 adolescence_mpfc_str <- read.table(file='../results/ROI-ROI correlations/adolescence_mpfc_str.csv')
-young_adult_mpfc_str <- read.table(file='../results/ROI-ROI correlations/young_adulthood_mpfc_str.csv')
+youngadulthood_mpfc_str <- read.table(file='../results/ROI-ROI correlations/youngadulthood_mpfc_str.csv')
 adult_mpfc_str <- read.table(file='../results/ROI-ROI correlations/adulthood_mpfc_str.csv')
 
 childhood_auditory_str<- read.table(file='../results/ROI-ROI correlations/childhood_str_auditory_mean.csv')
 adolescence_auditory_str <- read.table(file='../results/ROI-ROI correlations/adolescence_str_auditory_mean.csv')
-young_adult_auditory_str <- read.table(file='../results/ROI-ROI correlations/young_adulthood_str_auditory_mean.csv')
+youngadulthood_auditory_str <- read.table(file='../results/ROI-ROI correlations/youngadulthood_str_auditory_mean.csv')
 adult_auditory_str <- read.table(file='../results/ROI-ROI correlations/adulthood_str_auditory_mean.csv')
 
 childhood_auditory_nac<- read.table(file='../results/ROI-ROI correlations/childhood_nac_auditory_mean.csv')
 adolescence_auditory_nac <- read.table(file='../results/ROI-ROI correlations/adolescence_nac_auditory_mean.csv')
-young_adult_auditory_nac <- read.table(file='../results/ROI-ROI correlations/young_adulthood_nac_auditory_mean.csv')
+youngadulthood_auditory_nac <- read.table(file='../results/ROI-ROI correlations/youngadulthood_nac_auditory_mean.csv')
 adult_auditory_nac <- read.table(file='../results/ROI-ROI correlations/adulthood_nac_auditory_mean.csv')
 ```
 
 #cleaning
 ```{r}
 childhood_mpfc_auditory_reward$time <- "Childhood"
-childhood_mpfc_auditory_reward$SUBID <- seq(1:18)
+childhood_mpfc_auditory_reward$SUBID <- seq(1:25)
 adolescence_mpfc_auditory_reward$time <- "Adolescence"
-adolescence_mpfc_auditory_reward$SUBID <- seq(1:18)
-young_adult_mpfc_auditory_reward$time <- "Young_Adulthood"
-young_adult_mpfc_auditory_reward$SUBID <- seq(1:18)
+adolescence_mpfc_auditory_reward$SUBID <- seq(1:25)
+youngadulthood_mpfc_auditory_reward$time <- "youngadulthood"
+youngadulthood_mpfc_auditory_reward$SUBID <- seq(1:25)
 adult_mpfc_auditory_reward$time <- "Adulthood"
-adult_mpfc_auditory_reward$SUBID <- seq(1:18)
+adult_mpfc_auditory_reward$SUBID <- seq(1:25)
 
-mpfc_auditory_reward <- rbind(childhood_mpfc_auditory_reward, adolescence_mpfc_auditory_reward,young_adult_mpfc_auditory_reward,
+mpfc_auditory_reward <- rbind(childhood_mpfc_auditory_reward, adolescence_mpfc_auditory_reward,youngadulthood_mpfc_auditory_reward,
                               adult_mpfc_auditory_reward)
 
 test <- lmer(V1 ~ time + (1|SUBID), data=mpfc_auditory_reward)
@@ -78,20 +78,20 @@ aov <- aov(data=mpfc_auditory_reward, V1 ~ time + Error(SUBID/time))
 summary(aov)
 
 childhood_mpfc_auditory$time <- "Childhood"
-childhood_mpfc_auditory$SUBID <- seq(1:18)
+childhood_mpfc_auditory$SUBID <- seq(1:25)
 adolescence_mpfc_auditory$time <- "Adolescence"
-adolescence_mpfc_auditory$SUBID <- seq(1:18)
-young_adult_mpfc_auditory$time <- "Young_Adulthood"
-young_adult_mpfc_auditory$SUBID <- seq(1:18)
+adolescence_mpfc_auditory$SUBID <- seq(1:25)
+youngadulthood_mpfc_auditory$time <- "youngadulthood"
+youngadulthood_mpfc_auditory$SUBID <- seq(1:25)
 adult_mpfc_auditory$time <- "Adulthood"
-adult_mpfc_auditory$SUBID <- seq(1:18)
-mpfc_auditory <- rbind(childhood_mpfc_auditory, adolescence_mpfc_auditory,young_adult_mpfc_auditory,
+adult_mpfc_auditory$SUBID <- seq(1:25)
+mpfc_auditory <- rbind(childhood_mpfc_auditory, adolescence_mpfc_auditory,youngadulthood_mpfc_auditory,
                               adult_mpfc_auditory)
 
-mpfc_auditory$time <- factor(mpfc_auditory$time, levels = c("Childhood", "Adolescence", "Young_Adulthood", "Adulthood"))
+mpfc_auditory$time <- factor(mpfc_auditory$time, levels = c("Childhood", "Adolescence", "youngadulthood", "Adulthood"))
 
-mpfc_auditory_plot <- 
-  ggplot(data=mpfc_auditory, aes(x=time, y=V1)) +
+#mpfc_auditory_plot <- 
+  ggplot(data=auditory_nac, aes(x=time, y=V1)) +
   stat_summary(fun.data = 'mean_se', geom = 'errorbar', width = 0.2) +
   stat_summary(fun.data = 'mean_se', geom = 'pointrange') +
   scale_x_discrete(labels=c("Childhood (0-11)", "Adolescence (12-18)", "Young\nAdulthood (19-25)",
@@ -131,14 +131,14 @@ summary(aov)
 
 typeof(mpfc_auditory$time)
 childhood_mpfc_reward$time <- "Childhood"
-childhood_mpfc_reward$SUBID <- seq(1:18)
+childhood_mpfc_reward$SUBID <- seq(1:25)
 adolescence_mpfc_reward$time <- "Adolescence"
-adolescence_mpfc_reward$SUBID <- seq(1:18)
-young_adult_mpfc_reward$time <- "Young_Adulthood"
-young_adult_mpfc_reward$SUBID <- seq(1:18)
+adolescence_mpfc_reward$SUBID <- seq(1:25)
+youngadulthood_mpfc_reward$time <- "youngadulthood"
+youngadulthood_mpfc_reward$SUBID <- seq(1:25)
 adult_mpfc_reward$time <- "Adulthood"
-adult_mpfc_reward$SUBID <- seq(1:18)
-mpfc_reward <- rbind(childhood_mpfc_reward, adolescence_mpfc_reward,young_adult_mpfc_reward,
+adult_mpfc_reward$SUBID <- seq(1:25)
+mpfc_reward <- rbind(childhood_mpfc_reward, adolescence_mpfc_reward,youngadulthood_mpfc_reward,
                               adult_mpfc_reward)
 
 aov <- aov(data=mpfc_reward, V1 ~ time + Error(SUBID/time))
@@ -148,29 +148,29 @@ test <- lmer(V1 ~ time + (1|SUBID), data=mpfc_reward)
 anova(test)
 
 childhood_reward$time <- "Childhood"
-childhood_reward$SUBID <- seq(1:18)
+childhood_reward$SUBID <- seq(1:25)
 adolescence_reward$time <- "Adolescence"
-adolescence_reward$SUBID <- seq(1:18)
-young_adult_reward$time <- "Young_Adulthood"
-young_adult_reward$SUBID <- seq(1:18)
+adolescence_reward$SUBID <- seq(1:25)
+youngadulthood_reward$time <- "youngadulthood"
+youngadulthood_reward$SUBID <- seq(1:25)
 adult_reward$time <- "Adulthood"
-adult_reward$SUBID <- seq(1:18)
-reward <- rbind(childhood_mpfc_reward, adolescence_mpfc_reward,young_adult_mpfc_reward,
+adult_reward$SUBID <- seq(1:25)
+reward <- rbind(childhood_mpfc_reward, adolescence_mpfc_reward,youngadulthood_mpfc_reward,
                               adult_mpfc_reward)
 test <- lmer(V1 ~ time + (1|SUBID), data=reward)
 anova(test)
 
 
 childhood_mpfc_nac$time <- "Childhood"
-childhood_mpfc_nac$SUBID <- seq(1:18)
+childhood_mpfc_nac$SUBID <- seq(1:25)
 adolescence_mpfc_nac$time <- "Adolescence"
-adolescence_mpfc_nac$SUBID <- seq(1:18)
-young_adult_mpfc_nac$time <- "Young_Adulthood"
-young_adult_mpfc_nac$SUBID <- seq(1:18)
+adolescence_mpfc_nac$SUBID <- seq(1:25)
+youngadulthood_mpfc_nac$time <- "youngadulthood"
+youngadulthood_mpfc_nac$SUBID <- seq(1:25)
 adult_mpfc_nac$time <- "Adulthood"
-adult_mpfc_nac$SUBID <- seq(1:18)
+adult_mpfc_nac$SUBID <- seq(1:25)
 
-mpfc_nac <- rbind(childhood_mpfc_nac, adolescence_mpfc_nac,young_adult_mpfc_nac,
+mpfc_nac <- rbind(childhood_mpfc_nac, adolescence_mpfc_nac,youngadulthood_mpfc_nac,
                               adult_mpfc_nac)
 
 test <- lm(V1 ~ time + (1|SUBID), data=mpfc_nac)
@@ -180,45 +180,45 @@ aov <- aov(data=mpfc_nac, V1 ~ time + Error(SUBID/time))
 summary(aov)
 
 childhood_mpfc_str$time <- "Childhood"
-childhood_mpfc_str$SUBID <- seq(1:18)
+childhood_mpfc_str$SUBID <- seq(1:25)
 adolescence_mpfc_str$time <- "Adolescence"
-adolescence_mpfc_str$SUBID <- seq(1:18)
-young_adult_mpfc_str$time <- "Young_Adulthood"
-young_adult_mpfc_str$SUBID <- seq(1:18)
+adolescence_mpfc_str$SUBID <- seq(1:25)
+youngadulthood_mpfc_str$time <- "youngadulthood"
+youngadulthood_mpfc_str$SUBID <- seq(1:25)
 adult_mpfc_str$time <- "Adulthood"
-adult_mpfc_str$SUBID <- seq(1:18)
+adult_mpfc_str$SUBID <- seq(1:25)
 
-mpfc_str <- rbind(childhood_mpfc_str, adolescence_mpfc_str,young_adult_mpfc_str,
+mpfc_str <- rbind(childhood_mpfc_str, adolescence_mpfc_str,youngadulthood_mpfc_str,
                               adult_mpfc_str)
 
 test <- lmer(V1 ~ time + (1|SUBID), data=mpfc_str)
 anova(test)
 
 childhood_auditory_str$time <- "Childhood"
-childhood_auditory_str$SUBID <- seq(1:18)
+childhood_auditory_str$SUBID <- seq(1:25)
 adolescence_auditory_str$time <- "Adolescence"
-adolescence_auditory_str$SUBID <- seq(1:18)
-young_adult_auditory_str$time <- "Young_Adulthood"
-young_adult_auditory_str$SUBID <- seq(1:18)
+adolescence_auditory_str$SUBID <- seq(1:25)
+youngadulthood_auditory_str$time <- "youngadulthood"
+youngadulthood_auditory_str$SUBID <- seq(1:25)
 adult_auditory_str$time <- "Adulthood"
-adult_auditory_str$SUBID <- seq(1:18)
+adult_auditory_str$SUBID <- seq(1:25)
 
-auditory_str <- rbind(childhood_auditory_str, adolescence_auditory_str,young_adult_auditory_str,
+auditory_str <- rbind(childhood_auditory_str, adolescence_auditory_str,youngadulthood_auditory_str,
                               adult_auditory_str)
 
 test <- lmer(V1 ~ time + (1|SUBID), data=auditory_str)
 anova(test)
 
 childhood_auditory_nac$time <- "Childhood"
-childhood_auditory_nac$SUBID <- seq(1:18)
+childhood_auditory_nac$SUBID <- seq(1:25)
 adolescence_auditory_nac$time <- "Adolescence"
-adolescence_auditory_nac$SUBID <- seq(1:18)
-young_adult_auditory_nac$time <- "Young_Adulthood"
-young_adult_auditory_nac$SUBID <- seq(1:18)
+adolescence_auditory_nac$SUBID <- seq(1:25)
+youngadulthood_auditory_nac$time <- "youngadulthood"
+youngadulthood_auditory_nac$SUBID <- seq(1:25)
 adult_auditory_nac$time <- "Adulthood"
-adult_auditory_nac$SUBID <- seq(1:18)
+adult_auditory_nac$SUBID <- seq(1:25)
 
-auditory_nac <- rbind(childhood_auditory_nac, adolescence_auditory_nac,young_adult_auditory_nac,
+auditory_nac <- rbind(childhood_auditory_nac, adolescence_auditory_nac,youngadulthood_auditory_nac,
                               adult_auditory_nac)
 
 test <- lmer(V1 ~ time + (1|SUBID), data=auditory_str)
