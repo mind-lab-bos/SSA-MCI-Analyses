@@ -1,3 +1,7 @@
+// register the audio worklet processor
+const audioContext = new AudioContext();
+await audioContext.audioWorklet.addModule('path/to/audio-worklet-processor.js');
+
 let intervalInSeconds = 0.2;
 let soundLoop = new p5.SoundLoop(onSoundLoop, intervalInSeconds);
 let synth = new p5.MonoSynth();
@@ -38,5 +42,26 @@ function onSoundLoop(timeFromNow) {
     console.log('Freq: ' + note);
   }
 
-  synth.play(note, 0.5, timeFromNow);
+  // create a new AudioWorkletNode for each note
+  const awn = new AudioWorkletNode(audioContext, 'js/sound-file-processor.js');
+
+  // connect the AudioWorkletNode to the output
+  awn.connect(audioContext.destination);
+
+  // send the note frequency to the AudioWorkletNode
+  awn.port.postMessage({
+    type: 'frequency',
+    value: note
+  });
+
+  // start the AudioWorkletNode
+  awn.port.postMessage({
+    type: 'start'
+  });
+
+  // stop the AudioWorkletNode after a duration of 0.1 seconds
+  awn.port.postMessage({
+    type: 'stop',
+    value: timeFromNow + 0.1
+  });
 }
