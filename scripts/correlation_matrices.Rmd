@@ -14,10 +14,9 @@ library(ggsignif)
 
 #read in data
 ```{r}
-childhood <- read.csv(file='../results/ROI-ROI correlations/childhood.csv')
-adolescence <- read.csv(file='../results/ROI-ROI correlations/adolescence.csv')
-youngadulthood <- read.csv(file='../results/ROI-ROI correlations/youngadulthood.csv')
-adulthood <- read.csv(file='../results/ROI-ROI correlations/adulthood.csv')
+childhood <- read.csv(file='childhoodconnectivity.csv')
+adolescence <- read.csv(file='adolescentconnectivity.csv')
+adulthood <- read.csv(file='adulthoodconnectivity.csv')
 ```
 
 
@@ -26,41 +25,11 @@ rownames(childhood) <- childhood$X
 childhood$X <- NULL
 childhood <- data.matrix(childhood)
 childhood[is.na(childhood)] <-1
+childhood <- DescTools::FisherZInv(childhood)
 
 png(height=1800, width=1800, file="../childhood_correlations.png")
-corrplot(childhood, tl.col = "black", col=colorRampPalette(c("blue","white","red"))(200), tl.pos='n', col.lim = c(-0.5,1), type="upper", method="color",  cl.cex = 3.5)
+corrplot(childhood, tl.col = "black", col=colorRampPalette(c("blue","white","red"))(200), tl.pos='n', col.lim = c(-1,1), type="upper", method="color",  cl.cex = 3.5)
 dev.off()
-
-childhood <- as.data.frame(childhood)
-childhood[childhood == 1] <- NA
-childhood_auditory <- childhood[1:18]
-childhood_auditory <-
-  childhood_auditory %>% filter(row(childhood_auditory) == 1:18)
-childhood_auditory <- data.matrix(childhood_auditory)
-mean((childhood_auditory), na.rm=TRUE)
-childhood_auditory <- data.frame(childhood_auditory)
-childhood_auditory$time <- 'childhood'
-
-childhood_reward <- childhood[19:36]
-childhood_reward <-
-  childhood_reward %>% filter(row(childhood_reward) == 19:36)
-childhood_reward <- data.matrix(childhood_reward)
-childhood_reward <- data.frame(childhood_reward)
-childhood_reward$time <- 'childhood'
-
-childhood_auditory_reward <- childhood[1:18]
-childhood_auditory_reward <-
-  childhood_auditory_reward %>% filter(row(childhood_auditory_reward) == 19:36)
-childhood_auditory_reward <- data.matrix(childhood_auditory_reward)
-mean(childhood_auditory_reward, na.rm=TRUE)
-childhood_auditory_reward <- data.frame((childhood_auditory_reward))
-childhood_auditory_reward$time <- 'childhood'
-
-childhood_mpfc <- childhood$mPFC
-
-childhood_mpfc_reward <- childhood_mpfc[19:36]
-
-childhood_mpfc_auditory <- childhood_mpfc[1:18]
 ```
 
 ```{r}
@@ -68,335 +37,22 @@ rownames(adolescence) <- adolescence$X
 adolescence$X <- NULL
 adolescence <- data.matrix(adolescence)
 adolescence[is.na(adolescence)] <- 1
+adolescence <- DescTools::FisherZInv(adolescence)
 
 png(height=1800, width=1800, file="../adolescence_correlations.png")
-corrplot(adolescence, tl.col = "black", col=colorRampPalette(c("blue","white","red"))(200), tl.pos='n', col.lim = c(-0.5,1), type="upper", method="color", cl.cex = 3.5)
+corrplot(adolescence, tl.col = "black", col=colorRampPalette(c("blue","white","red"))(200), tl.pos='n', col.lim = c(-1,1), type="upper", method="color", cl.cex = 3.5)
 dev.off()
-
-adolescence <- as.data.frame(adolescence)
-adolescence[adolescence == 1] <- NA
-adolescence_auditory <- adolescence[1:18]
-adolescence_auditory <-
-  adolescence_auditory %>% filter(row(adolescence_auditory) == 1:18)
-adolescence_auditory <- data.matrix(adolescence_auditory)
-mean(adolescence_auditory, na.rm=TRUE)
-adolescence_auditory <- as.data.frame(adolescence_auditory)
-adolescence_auditory$time <- 'adolescence'
-
-adolescence_reward <- adolescence[19:36]
-adolescence_reward <-
-  adolescence_reward %>% filter(row(adolescence_reward) == 19:36)
-adolescence_reward <- data.matrix(adolescence_reward)
-adolescence_reward <- as.data.frame(adolescence_reward)
-adolescence_reward$time <- 'adolescence'
-
-adolescence_auditory_reward <- adolescence[1:18]
-adolescence_auditory_reward <-
-  adolescence_auditory_reward %>% filter(row(adolescence_auditory_reward) == 19:36)
-adolescence_auditory_reward <- data.matrix(adolescence_auditory_reward)
-mean(adolescence_auditory_reward, na.rm=TRUE)
-adolescence_auditory_reward <- data.frame(adolescence_auditory_reward)
-adolescence_auditory_reward$time <- 'adolescence'
-
-adolescence_mpfc <- adolescence$mPFC
-
-adolescence_mpfc_reward <- adolescence_mpfc[19:36]
-
-adolescence_mpfc_auditory <- adolescence$mPFC[1:18]
 ```
 
-```{r}
-rownames(youngadulthood) <- youngadulthood$X
-youngadulthood$X <- NULL
-youngadulthood <- data.matrix(youngadulthood)
-
-youngadulthood[is.na(youngadulthood)] <- 1
-png(height=1800, width=1800, file="../ya_correlations.png")
-corrplot(youngadulthood, tl.pos='n', col.lim = c(-0.5,1), col=colorRampPalette(c("blue","white","red"))(200), type="upper", cl.cex = 3.5,method="color")
-dev.off()
-
-youngadulthood <- as.data.frame(youngadulthood)
-youngadulthood[youngadulthood == 1] <- NA
-youngadult_auditory <- youngadulthood[1:18]
-youngadult_auditory <-
-  youngadult_auditory %>% filter(row(youngadult_auditory) == 1:18)
-youngadult_auditory <- data.matrix(youngadult_auditory)
-youngadult_auditory <- as.data.frame(youngadult_auditory)
-youngadult_auditory$time <- 'young_adulthood'
-
-youngadult_reward <- youngadulthood[19:36]
-youngadult_reward <-
-  youngadult_reward %>% filter(row(youngadult_reward) == 19:36)
-youngadult_reward <- data.matrix(youngadult_reward)
-youngadult_reward <- as.data.frame(youngadult_reward)
-youngadult_reward$time <- 'young_adulthood'
-
-youngadult_auditory_reward <- youngadulthood[1:18]
-youngadult_auditory_reward <-
-  youngadult_auditory_reward %>% filter(row(youngadult_auditory_reward) == 19:36)
-youngadult_auditory_reward <- data.matrix(youngadult_auditory_reward)
-mean(youngadult_auditory_reward, na.rm=TRUE)
-youngadult_auditory_reward <- data.frame(youngadult_auditory_reward)
-youngadult_auditory_reward$time <- 'young_adult'
-
-ya_mpfc <- youngadulthood$mPFC
-
-ya_mpfc_reward <- ya_mpfc[19:36]
-
-ya_mpfc_auditory <- ya_mpfc[1:18]
-```
 
 ```{r}
 rownames(adulthood) <- adulthood$X
 adulthood$X <- NULL
 adulthood <- data.matrix(adulthood)
 adulthood[is.na(adulthood)] <- 1
+adulthood <- DescTools::FisherZInv(adulthood)
 
 png(height=1800, width=1800, file="../adulthood_correlations.png")
-corrplot(adulthood, type="upper", tl.col = "black", col=colorRampPalette(c("blue","white","red"))(200),tl.pos='n', col.lim = c(-0.5,1), cl.cex = 3.5,method="color")
+corrplot(adulthood, type="upper", tl.col = "black", col=colorRampPalette(c("blue","white","red"))(200),tl.pos='n', col.lim = c(-1,1), cl.cex = 3.5,method="color")
 dev.off()
-
-adulthood <- as.data.frame(adulthood)
-adulthood[adulthood == 1] <- NA
-
-adult_auditory <- adulthood[1:18]
-adult_auditory <-
-  adult_auditory %>% filter(row(adult_auditory) == 1:18)
-adult_auditory <- data.matrix(adult_auditory)
-adult_auditory <- as.data.frame(adult_auditory)
-adult_auditory$time <- 'adulthood'
-
-adult_reward <- adulthood[19:36]
-adult_reward <-
-  adult_reward %>% filter(row(adult_reward) == 19:36)
-adult_reward <- data.matrix(adult_reward)
-adult_reward <- as.data.frame(adult_reward)
-adult_reward$time <- 'adulthood'
-
-adult_auditory_reward <- adulthood[1:18]
-adult_auditory_reward <-
-  adult_auditory_reward %>% filter(row(adult_auditory_reward) == 19:36)
-adult_auditory_reward <- data.matrix(adult_auditory_reward)
-mean(adult_auditory_reward, na.rm=TRUE)
-adult_auditory_reward <- data.frame(adult_auditory_reward)
-adult_auditory_reward$time <- 'adult'
-
-adulthood_mpfc <- adulthood$mPFC
-
-adulthood_mpfc_reward <- adulthood_mpfc[19:36]
-
-adulthood_mpfc_auditory <- adulthood_mpfc[1:18]
-```
-#results
-```{r}
-mpfc <- as.data.frame(cbind(adulthood_mpfc, ya_mpfc, adolescence_mpfc, childhood_mpfc))
-mpfc_corr <- pivot_longer(mpfc, adulthood_mpfc:childhood_mpfc, values_to = "correlation", names_to = "Time")
-
-
-mpfc_corr$Time <- factor(mpfc_corr$Time, levels = c("childhood_mpfc", "adolescence_mpfc", "ya_mpfc", "adulthood_mpfc"))
-
-#mpfc_auditory_mpfc <-
-  ggplot(mpfc_corr, aes(x=Time, y=correlation)) +
-  stat_summary(fun = 'mean',geom="line", group=1) +
-  stat_summary(fun.data = 'mean_se', geom = 'errorbar', width = 0.2) +
-  stat_summary(fun.data = 'mean_se', geom = 'pointrange') +
-  ylab("Average Correlation Coefficient") +
-  xlab("Developmental Timing of Exposure") +
-  scale_x_discrete(labels=c("Childhood (0-11)", "Adolescence (12-18)", "Young\nAdulthood (19-25)",
-                            "Adulthood (26-45)")) +
-     geom_signif(
-    comparisons = list(c("childhood_mpfc", "adulthood_mpfc")),
-    map_signif_level = TRUE,
-    y_position=0.4
-  ) +
-  geom_signif(
-    comparisons = list(c("adolescence_mpfc", "adulthood_mpfc")),
-    map_signif_level = TRUE,
-    y_position=0.4
-  ) +
-  ggtitle("Average mPFC Connectivity to Auditory & Reward ROIs") +
-  theme(
-    axis.title.x = element_text(size=16, family="Arial"),
-    axis.title.y = element_text(size=16, family="Arial"),
-    axis.text.y = element_text(size=12, family="Arial"), 
-    axis.text.x = element_text(size=12, family="Arial"),
-    strip.text.x = element_text(size = 12, family="Arial")
-  ) +
-  coord_cartesian(ylim = c(0,0.6))
-
-ggsave('../results/mpfc_auditory_reward.png', mpfc_auditory_mpfc, width=10)
-
-aov <- aov(data=mpfc_corr, correlation ~ Time)
-summary(aov)
-
-emm <- emmeans(aov, ~ Time)
-pairs(emm)
-
-mpfc_reward <- as.data.frame(cbind(adulthood_mpfc_reward, ya_mpfc_reward, adolescence_mpfc_reward, childhood_mpfc_reward))
-
-mpfc_corr_reward <- pivot_longer(mpfc_reward, adulthood_mpfc_reward:childhood_mpfc_reward, values_to = "correlation", names_to = "Time")
-
-mpfc_corr_reward$Time <- factor(mpfc_corr_reward$Time, levels = c("childhood_mpfc_reward", "adolescence_mpfc_reward", "ya_mpfc_reward", "adulthood_mpfc_reward"))
-
-mpfc_reward <-
-ggplot(mpfc_corr_reward, aes(x=Time, y=correlation)) +
-  stat_summary(fun = 'mean',geom="line", group=1) +
-  stat_summary(fun.data = 'mean_se', geom = 'errorbar', width = 0.2) +
-  stat_summary(fun.data = 'mean_se', geom = 'pointrange') +
-  ylab("Average Correlation Coefficient") +
-  xlab("Developmental Timing of Exposure") +
-  scale_x_discrete(labels=c("Childhood (0-11)", "Adolescence (12-18)", "Young\nAdulthood (19-25)",
-                            "Adulthood (26-45)")) +
-  ggtitle("Average mPFC Connectivity to Reward ROIs") +
-  theme(
-    axis.title.x = element_text(size=16, family="Arial"),
-    axis.title.y = element_text(size=16, family="Arial"),
-    axis.text.y = element_text(size=12, family="Arial"), 
-    axis.text.x = element_text(size=12, family="Arial"),
-    strip.text.x = element_text(size = 12, family="Arial")
-  ) +
-  coord_cartesian(ylim = c(0,0.6))
-ggsave('../results/mpfc_reward.png', mpfc_reward, width=10)
-
-aov <- aov(data=mpfc_corr_reward, correlation ~ Time)
-summary(aov)
-
-mpfc_auditory <- as.data.frame(cbind(adulthood_mpfc_auditory, ya_mpfc_auditory, adolescence_mpfc_auditory, childhood_mpfc_auditory))
-
-mpfc_corr_auditory <- pivot_longer(mpfc_auditory, adulthood_mpfc_auditory:childhood_mpfc_auditory, values_to = "correlation", names_to = "Time")
-
-mpfc_corr_auditory$Time <- factor(mpfc_corr_auditory$Time, levels = c("childhood_mpfc_auditory", "adolescence_mpfc_auditory", "ya_mpfc_auditory", "adulthood_mpfc_auditory"))
-
-aov <- aov(data=mpfc_corr_auditory, correlation ~ Time)
-summary(aov)
-
-emm <- emmeans(aov, ~ Time)
-pairs(emm)
-
-mpfc_auditory <- 
-ggplot(mpfc_corr_auditory, aes(x=Time, y=correlation)) +
-  stat_summary(fun = 'mean',geom="line", group=1) +
-  stat_summary(fun.data = 'mean_se', geom = 'errorbar', width = 0.2) +
-  stat_summary(fun.data = 'mean_se', geom = 'pointrange') +
-  ylab("Average Correlation Coefficient") +
-  xlab("Developmental Timing of Exposure") +
-  scale_x_discrete(labels=c("Childhood (0-11)", "Adolescence (12-18)", "Young\nAdulthood (19-25)",
-                            "Adulthood (26-45)")) +
-     geom_signif(
-    comparisons = list(c("adolescence_mpfc_auditory", "ya_mpfc_auditory")),
-    map_signif_level = TRUE,
-    y_position=0.45
-  ) +
-  geom_signif(
-    comparisons = list(c("adolescence_mpfc_auditory", "adulthood_mpfc_auditory")),
-    map_signif_level = TRUE,
-    y_position=0.45
-  ) +
-  ggtitle("Average mPFC Connectivity to Auditory ROIs") +
-  theme(
-    axis.title.x = element_text(size=16, family="Arial"),
-    axis.title.y = element_text(size=16, family="Arial"),
-    axis.text.y = element_text(size=12, family="Arial"), 
-    axis.text.x = element_text(size=12, family="Arial"),
-    strip.text.x = element_text(size = 12, family="Arial")
-  ) +
-  coord_cartesian(ylim = c(0,0.6))
-
-ggsave('../results/mpfc_auditory.png', mpfc_auditory, width=10)
-
-auditory <- rbind(adult_auditory, youngadult_auditory, adolescence_auditory, childhood_auditory)
-auditory <- pivot_longer(auditory, aSTGr:HGl, values_to = "correlation",names_to = "area")
-auditory <- auditory %>% distinct(correlation, time, .keep_all = T)
-
-auditory$time <- factor(auditory$time, levels = c("childhood", "adolescence", "young_adulthood", "adulthood"))
-
-auditory <-
-  ggplot(auditory, aes(x=time, y=correlation)) +
-  stat_summary(fun = 'mean',geom="line", group=1) +
-  stat_summary(fun.data = 'mean_se', geom = 'errorbar', width = 0.2) +
-  stat_summary(fun.data = 'mean_se', geom = 'pointrange') +
-  ylab("Average Correlation Coefficient") +
-  xlab("Developmental Timing of Exposure") +
-  scale_x_discrete(labels=c("Childhood (0-11)", "Adolescence (12-18)", "Young\nAdulthood (19-25)",
-                            "Adulthood (26-45)")) +
-  ggtitle("Average Within-Auditory Network Connectivity")
-
-ggsave('../results/auditory.png', auditory, width=10)
-
-aov <- aov(data=auditory, correlation ~ time)
-summary(aov)
-
-emm <- emmeans(aov, ~ time)
-pairs(emm)
-
-
-reward <- rbind(adult_reward, youngadult_reward, adolescence_reward, childhood_reward)
-reward <- pivot_longer(reward, Caudater:FOrbl, values_to = "correlation",names_to = "area")
-reward <- reward %>% distinct(correlation, time, .keep_all = T)
-
-reward$time <- factor(reward$time, levels = c("childhood", "adolescence", "young_adulthood", "adulthood"))
-
-#reward <-
-  ggplot(reward, aes(x=time, y=correlation)) +
-  stat_summary(fun = 'mean',geom="line", group=1) +
-  stat_summary(fun.data = 'mean_se', geom = 'errorbar', width = 0.2) +
-  stat_summary(fun.data = 'mean_se', geom = 'pointrange') +
-  ylab("Average Correlation Coefficient") +
-  xlab("Developmental Timing of Exposure") +
-  scale_x_discrete(labels=c("Childhood (0-11)", "Adolescence (12-18)", "Young\nAdulthood (19-25)",
-                            "Adulthood (26-45)")) +
-  ggtitle("Average Within-Reward Region Connectivity") +
-  geom_signif(
-    comparisons = list(c("childhood", "adulthood")),
-    map_signif_level = TRUE,
-    y_position=0.325
-  ) 
-  
-ggsave('../results/reward.png', reward, width=10)
-
-aov <- aov(data=reward, correlation ~ time)
-summary(aov)
-
-emm <- emmeans(aov, ~ time)
-pairs(emm)
-
-reward_auditory <- rbind(adult_auditory_reward, youngadult_auditory_reward, adolescence_auditory_reward, childhood_auditory_reward)
-reward_auditory <- pivot_longer(reward_auditory, aSTGr:HGl, values_to = "correlation",names_to = "area")
-reward_auditory <- reward_auditory %>% distinct(correlation, time, .keep_all = T)
-
-reward_auditory$time <- factor(reward_auditory$time, levels = c("childhood", "adolescence", "young_adult", "adult"))
-
-reward_auditory <-
-  ggplot(reward_auditory, aes(x=time, y=correlation)) +
-  stat_summary(fun = 'mean',geom="line", group=1) +
-  stat_summary(fun.data = 'mean_se', geom = 'errorbar', width = 0.2) +
-  stat_summary(fun.data = 'mean_se', geom = 'pointrange') +
-  ylab("Average Correlation Coefficient") +
-  xlab("Developmental Timing of Exposure") +
-  scale_x_discrete(labels=c("Childhood (0-11)", "Adolescence (12-18)", "Young\nAdulthood (19-25)",
-                            "Adulthood (26-45)")) +
-  ggtitle("Average Connectivity Between Auditory & Reward Regions") +
-  geom_signif(
-    comparisons = list(c("childhood", "adolescence")),
-    map_signif_level = TRUE,
-    y_position=0.25
-  )  +
-  geom_signif(
-    comparisons = list(c("childhood", "young_adult")),
-    map_signif_level = TRUE,
-    y_position=0.25
-  ) +
-  geom_signif(
-    comparisons = list(c("childhood", "adult")),
-    map_signif_level = TRUE,
-    y_position=0.25
-  ) 
-  
-ggsave('../results/reward_auditory.png', reward_auditory, width=10)
-
-aov <- aov(data=reward_auditory, correlation ~ time)
-summary(aov)
-
-emm <- emmeans(aov, ~ time)
-pairs(emm)
 ```

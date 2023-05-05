@@ -1,0 +1,133 @@
+---
+title: "analysis"
+author: "Nick Kathios"
+date: '2022-12-02'
+output: html_document
+---
+#loading in necessary packages
+```{r}
+library(tidyverse)
+library(lmerTest)
+library(lme4)
+```
+
+#loading in data
+```{r}
+timeseries <- read.csv(file='auditoryreward.csv')
+timeseries$seconds<- (timeseries$TR - ((timeseries$order-1)*60))*0.475 # adding seconds to df
+timeseries$age_bin = ifelse(timeseries$age_bin=="aduthood","adulthood", timeseries$age_bin) #recoding some values
+timeseries <- timeseries[!(is.na(timeseries$age_bin) | timeseries$age_bin==""), ]
+key <- read.csv(file="participant_key.csv")
+timeseries <- merge(timeseries,key)
+timeseries$cognitive_health = ifelse(timeseries$cognitive_health=="Healthy","Cognitively Healthy", timeseries$cognitive_health) #recoding some values
+timeseries$age_bin = ifelse(timeseries$age_bin=="adulthood","Adulthood", timeseries$age_bin) #recoding some values
+timeseries$age_bin = ifelse(timeseries$age_bin=="adolescence","Adolescence", timeseries$age_bin) #recoding some values
+timeseries$age_bin = ifelse(timeseries$age_bin=="childhood","Childhood", timeseries$age_bin) #recoding some values
+timeseries$age_bin<-factor(timeseries$age_bin, levels = c("Childhood", "Adolescence", "Adulthood"))
+```
+
+
+```{r}
+##all together 
+#timeseries$NAccaverage <- (timeseries$accumbensl + timeseries$accumbensr)/2
+
+onset_value <- 
+  timeseries %>%
+  group_by(SUBID, stim_number) %>%
+  subset(seconds==0.475) %>%
+  mutate(
+    onset_value = accumbensr
+  )
+
+onset_value <- cbind(onset_value[1],onset_value[6],onset_value[45])
+
+timeseries_onset_value <- merge(timeseries, onset_value, by.x=c("SUBID","stim_number"), by.y=c("SUBID", "stim_number"))
+
+timeseries_onset_value <-
+  timeseries_onset_value %>%
+  group_by(SUBID, stim_number) %>%
+  mutate(
+    scaled = (accumbensr - onset_value)/sd(accumbensr), #update ROIs here
+  )
+
+NAccltimeseries<-
+ggplot(timeseries_onset_value, aes(x=round(seconds), y=scaled)) + 
+  geom_smooth(aes(color=age_bin, fill=age_bin))+
+  theme_classic()+
+  labs(x= "Time (s)", y="Scaled ROI Activity") +
+ facet_grid(~cognitive_health) +
+  scale_color_discrete(name = "Age of Exposure")+
+  scale_fill_discrete(name = "Age of Exposure") +
+ theme(legend.position = "none") +
+  theme(axis.text=element_text(size=20, face="bold"), axis.title=element_text(size=20,face="bold"), strip.text.x = element_text(size=18,face="bold"))
+
+ggsave(NAccltimeseries, file="NAccltimeseries.png", dpi=350, width=12)
+```
+
+
+```{r}
+##all together 
+#timeseries$NAccaverage <- (timeseries$accumbensl + timeseries$accumbensr)/2
+
+onset_value <- 
+  timeseries %>%
+  group_by(SUBID, stim_number) %>%
+  subset(seconds==0.475) %>%
+  mutate(
+    onset_valuel = accumbensl, #update ROIs here
+    onset_valuer = accumbensr
+  )
+
+onset_value <- cbind(onset_value[1],onset_value[6],onset_value[44], onset_value[45])
+
+timeseries_onset_value <- merge(timeseries, onset_value, by.x=c("SUBID","stim_number"), by.y=c("SUBID", "stim_number"))
+
+timeseries_onset_value <-
+  timeseries_onset_value %>%
+  group_by(SUBID, stim_number) %>%
+  mutate(
+    scaledl = (accumbensl - onset_valuel)/sd(accumbensl), #update ROIs here,
+    scaledr = (accumbensr - onset_valuer)/sd(accumbensr)
+  )
+
+timeseries_onset_value$NAccaverage <- (timeseries_onset_value$scaledl + timeseries_onset_value$scaledr)/2
+
+NAccaveragetimeseries <-
+  ggplot(timeseries_onset_value, aes(x=round(seconds), y=NAccaverage)) + 
+  geom_smooth(aes(color=age_bin, fill=age_bin))+
+  theme_classic()+
+  labs(x= "Time (s)", y="Scaled ROI Activity") +
+  facet_grid(~cognitive_health) +
+  scale_color_discrete(name = "Age of Exposure")+
+  scale_fill_discrete(name = "Age of Exposure") +
+  theme(legend.position = "none") +
+  theme(axis.text=element_text(size=20, face="bold"), axis.title=element_text(size=20,face="bold"), strip.text.x = element_text(size=18,face="bold"))
+  
+    
+
+ggsave(NAccaveragetimeseries, file="NAccaveragetimeseries.png", dpi=350, width=12)
+```
+
+#averages of *mean-centered* responses
+```{r}
+participant_average_activation <-
+timeseries %>%
+  group_by(SUBID) %>% ## here you can add which variables you'd be interested in looking at 
+  summarise_at(vars(mPFC_cluster), list(name = mean))
+
+timeseries_all <- merge(timeseries, participant_average_activation, by = "SUBID", all.x=TRUE )
+names(timeseries_all)[45] <- "mean_response"
+timeseries_all$mean_centered <- timeseries_all$mPFC_cluster - timeseries_all$mean_response
+
+participant_average_meancenter <-
+timeseries_all %>%
+  group_by(SUBID, age_bin,cognitive_health) %>% ## here you can add which variables you'd be interested in looking at 
+  summarise_at(vars(mean_centered), list(name = mean))
+
+##plotting
+ggplot(data=participant_average_meancenter, aes(x=age_bin, y=name))+
+  theme_classic() +
+  stat_summary(fun.data = 'mean_cl_normal', geom = 'errorbar', width = 0.2, alpha=0.5) +
+  stat_summary(fun.data = 'mean_cl_normal', geom = 'pointrange', alpha=0.5) +
+  facet_grid(~cognitive_health)
+```

@@ -13,98 +13,55 @@ library(lmerTest)
 
 #read in data
 ```{r}
-#mpfc-reward/auditory
-childhood_mpfc_auditory_reward <- read.table(file='../results/ROI-ROI correlations/childhood_mpfc_auditory_reward_mean.csv')
-adolescence_mpfc_auditory_reward <- read.table(file='../results/ROI-ROI correlations/adolescence_mpfc_auditory_reward_mean.csv')
-youngadulthood_mpfc_auditory_reward <- read.table(file='../results/ROI-ROI correlations/youngadulthood_mpfc_auditory_reward_mean.csv')
-adult_mpfc_auditory_reward <- read.table(file='../results/ROI-ROI correlations/adulthood_mpfc_auditory_reward_mean.csv')
+childhood_mpfc_auditory <- read.table(file='childhood_mpfc_auditory_mean.csv')
+adolescence_mpfc_auditory <- read.table(file='adolescence_mpfc_auditory_mean.csv')
+adult_mpfc_auditory <- read.table(file='adulthood_mpfc_auditory_mean.csv')
 
+childhood_mpfc_reward <- read.table(file='childhood_mpfc_reward_mean.csv')
+adolescence_mpfc_reward <- read.table(file='adolescence_mpfc_reward_mean.csv')
+adult_mpfc_reward <- read.table(file='adulthood_mpfc_reward_mean.csv')
 
-childhood_mpfc_auditory <- read.table(file='../results/ROI-ROI correlations/childhood_mpfc_auditory_mean.csv')
-adolescence_mpfc_auditory <- read.table(file='../results/ROI-ROI correlations/adolescence_mpfc_auditory_mean.csv')
-youngadulthood_mpfc_auditory <- read.table(file='../results/ROI-ROI correlations/youngadulthood_mpfc_auditory_mean.csv')
-adult_mpfc_auditory <- read.table(file='../results/ROI-ROI correlations/adulthood_mpfc_auditory_mean.csv')
+childhood_reward_auditory <- read.table(file='childhood_reward_auditory_mean.csv')
+adolescence_reward_auditory <- read.table(file='adolescence_reward_auditory_mean.csv')
+adult_reward_auditory <- read.table(file='adulthood_reward_auditory_mean.csv')
 
-childhood_mpfc_reward <- read.table(file='../results/ROI-ROI correlations/childhood_mpfc_reward_mean.csv')
-adolescence_mpfc_reward <- read.table(file='../results/ROI-ROI correlations/adolescence_mpfc_reward_mean.csv')
-youngadulthood_mpfc_reward <- read.table(file='../results/ROI-ROI correlations/youngadulthood_mpfc_reward_mean.csv')
-adult_mpfc_reward <- read.table(file='../results/ROI-ROI correlations/adulthood_mpfc_reward_mean.csv')
+childhood_auditory <- read.table(file='childhood_auditory_participant_mean.csv')
+adolescence_auditory <- read.table(file='adolescence_auditory_participant_mean.csv')
+adult_auditory <- read.table(file='adulthood_auditory_participant_mean.csv')
 
-childhood_reward <- read.table(file='../results/ROI-ROI correlations/childhood_reward_participant_mean.csv')
-adolescence_reward <- read.table(file='../results/ROI-ROI correlations/adolescence_reward_participant_mean.csv')
-youngadulthood_reward <- read.table(file='../results/ROI-ROI correlations/youngadulthood_reward_participant_mean.csv')
-adult_reward <- read.table(file='../results/ROI-ROI correlations/adulthood_reward_participant_mean.csv')
+childhood_reward <- read.table(file='childhood_reward_participant_mean.csv')
+adolescence_reward <- read.table(file='adolescence_reward_participant_mean.csv')
+adult_reward <- read.table(file='adulthood_reward_participant_mean.csv')
 
-childhood_mpfc_nac <- read.table(file='../results/ROI-ROI correlations/childhood_mpfc_nac.csv')
-adolescence_mpfc_nac <- read.table(file='../results/ROI-ROI correlations/adolescence_mpfc_nac.csv')
-youngadulthood_mpfc_nac <- read.table(file='../results/ROI-ROI correlations/youngadulthood_mpfc_nac.csv')
-adult_mpfc_nac <- read.table(file='../results/ROI-ROI correlations/adulthood_mpfc_nac.csv')
+key <- read.csv(file="participant_key.csv")
+key$cognitive_health = ifelse(key$cognitive_health=="Healthy","Cognitively Healthy", key$cognitive_health) #recoding some values
 
-
-childhood_mpfc_str<- read.table(file='../results/ROI-ROI correlations/childhood_mpfc_str.csv')
-adolescence_mpfc_str <- read.table(file='../results/ROI-ROI correlations/adolescence_mpfc_str.csv')
-youngadulthood_mpfc_str <- read.table(file='../results/ROI-ROI correlations/youngadulthood_mpfc_str.csv')
-adult_mpfc_str <- read.table(file='../results/ROI-ROI correlations/adulthood_mpfc_str.csv')
-
-childhood_auditory_str<- read.table(file='../results/ROI-ROI correlations/childhood_str_auditory_mean.csv')
-adolescence_auditory_str <- read.table(file='../results/ROI-ROI correlations/adolescence_str_auditory_mean.csv')
-youngadulthood_auditory_str <- read.table(file='../results/ROI-ROI correlations/youngadulthood_str_auditory_mean.csv')
-adult_auditory_str <- read.table(file='../results/ROI-ROI correlations/adulthood_str_auditory_mean.csv')
-
-childhood_auditory_nac<- read.table(file='../results/ROI-ROI correlations/childhood_nac_auditory_mean.csv')
-adolescence_auditory_nac <- read.table(file='../results/ROI-ROI correlations/adolescence_nac_auditory_mean.csv')
-youngadulthood_auditory_nac <- read.table(file='../results/ROI-ROI correlations/youngadulthood_nac_auditory_mean.csv')
-adult_auditory_nac <- read.table(file='../results/ROI-ROI correlations/adulthood_nac_auditory_mean.csv')
 ```
 
 #cleaning
 ```{r}
-childhood_mpfc_auditory_reward$time <- "Childhood"
-childhood_mpfc_auditory_reward$SUBID <- seq(1:25)
-adolescence_mpfc_auditory_reward$time <- "Adolescence"
-adolescence_mpfc_auditory_reward$SUBID <- seq(1:25)
-youngadulthood_mpfc_auditory_reward$time <- "youngadulthood"
-youngadulthood_mpfc_auditory_reward$SUBID <- seq(1:25)
-adult_mpfc_auditory_reward$time <- "Adulthood"
-adult_mpfc_auditory_reward$SUBID <- seq(1:25)
-
-mpfc_auditory_reward <- rbind(childhood_mpfc_auditory_reward, adolescence_mpfc_auditory_reward,youngadulthood_mpfc_auditory_reward,
-                              adult_mpfc_auditory_reward)
-
-test <- lmer(V1 ~ time + (1|SUBID), data=mpfc_auditory_reward)
-anova(test)
-
-aov <- aov(data=mpfc_auditory_reward, V1 ~ time + Error(SUBID/time))
-summary(aov)
-
+#MPFC - AUDITORY
 childhood_mpfc_auditory$time <- "Childhood"
-childhood_mpfc_auditory$SUBID <- seq(1:25)
+childhood_mpfc_auditory$CONN_ID <- seq(1:30)
 adolescence_mpfc_auditory$time <- "Adolescence"
-adolescence_mpfc_auditory$SUBID <- seq(1:25)
-youngadulthood_mpfc_auditory$time <- "youngadulthood"
-youngadulthood_mpfc_auditory$SUBID <- seq(1:25)
+adolescence_mpfc_auditory$CONN_ID <- seq(1:30)
 adult_mpfc_auditory$time <- "Adulthood"
-adult_mpfc_auditory$SUBID <- seq(1:25)
-mpfc_auditory <- rbind(childhood_mpfc_auditory, adolescence_mpfc_auditory,youngadulthood_mpfc_auditory,
+adult_mpfc_auditory$CONN_ID <- seq(1:30)
+mpfc_auditory <- rbind(childhood_mpfc_auditory, adolescence_mpfc_auditory,
                               adult_mpfc_auditory)
+mpfc_auditory <- merge(mpfc_auditory, key, by = "CONN_ID")
 
-mpfc_auditory$time <- factor(mpfc_auditory$time, levels = c("Childhood", "Adolescence", "youngadulthood", "Adulthood"))
+mpfc_auditory$time <- factor(mpfc_auditory$time, levels = c("Childhood", "Adolescence", "Adulthood"))
 
-#mpfc_auditory_plot <- 
-  ggplot(data=auditory_nac, aes(x=time, y=V1)) +
+
+  ggplot(data=mpfc_auditory, aes(x=time, y=V1)) +
   stat_summary(fun.data = 'mean_se', geom = 'errorbar', width = 0.2) +
   stat_summary(fun.data = 'mean_se', geom = 'pointrange') +
-  scale_x_discrete(labels=c("Childhood (0-11)", "Adolescence (12-18)", "Young\nAdulthood (19-25)",
+  scale_x_discrete(labels=c("Childhood (0-12)", "Adolescence (13-18)",
                             "Adulthood (26-45)")) +
   ylab("Average Fisher-Transformed Correlation Coefficient") +
-  xlab("Developmental Time Period") +
-        theme(
-    axis.title.x = element_text(size=18, family="Arial",face="bold"),
-    axis.title.y = element_text(size=18, family="Arial", face="bold"),
-    axis.text.y = element_text(size=14, family="Arial"), 
-    axis.text.x = element_text(size=14, family="Arial"),
-    strip.text.x = element_text(size=12,family="Arial")
-  ) 
+  xlab("Developmental Time Period")+
+   facet_grid(~cognitive_health)
 
 ggsave("../results/mpfc_auditory_plot.png", plot = mpfc_auditory_plot, width=11)
 
@@ -129,17 +86,34 @@ aov <- aov(data=mpfc_auditory, V1 ~ time + Error(SUBID/time))
 aov <- aov(data=mpfc_auditory, V1 ~ time + Error(SUBID/time))
 summary(aov)
 
-typeof(mpfc_auditory$time)
+#MPFC - REWARD (HIGHLIGHT!!)
 childhood_mpfc_reward$time <- "Childhood"
-childhood_mpfc_reward$SUBID <- seq(1:25)
+childhood_mpfc_reward$CONN_ID <- seq(1:30)
 adolescence_mpfc_reward$time <- "Adolescence"
-adolescence_mpfc_reward$SUBID <- seq(1:25)
-youngadulthood_mpfc_reward$time <- "youngadulthood"
-youngadulthood_mpfc_reward$SUBID <- seq(1:25)
+adolescence_mpfc_reward$CONN_ID <- seq(1:30)
 adult_mpfc_reward$time <- "Adulthood"
-adult_mpfc_reward$SUBID <- seq(1:25)
-mpfc_reward <- rbind(childhood_mpfc_reward, adolescence_mpfc_reward,youngadulthood_mpfc_reward,
+adult_mpfc_reward$CONN_ID <- seq(1:30)
+mpfc_reward <- rbind(childhood_mpfc_reward, adolescence_mpfc_reward,
                               adult_mpfc_reward)
+mpfc_reward <- merge(mpfc_reward, key, by = "CONN_ID")
+
+mpfc_rewardplot<-
+  ggplot(data=mpfc_reward, aes(x=time, y=V1)) +
+  stat_summary(fun.data = 'mean_se', geom = 'errorbar', width = 0.2, aes(color=time)) +
+  stat_summary(fun.data = 'mean_se', geom = 'pointrange', aes(color=time)) +
+  scale_x_discrete(labels=c("Childhood\n(0-12)", "Adolescence\n(13-18)",
+                            "Adulthood\n(26-45)")) +
+  ylab("Average Fisher-Transformed\nCorrelation Coefficient") +
+  xlab("Developmental Time Period")  + 
+  facet_grid(~cognitive_health) + 
+ theme_classic()+
+  theme(legend.position = "none") +
+  xlab("Age of Exposure")+
+  theme(axis.text=element_text(size=20, face="bold"), axis.title=element_text(size=20,face="bold"), strip.text.x = element_text(size=18,face="bold"), title = element_text(size=22, face="bold")) +
+  ggtitle("Average mPFC-Reward Network Connectivity")
+
+ggsave(mpfc_rewardplot, file="mpfc_reward.png", dpi=350, width=12)
+
 
 aov <- aov(data=mpfc_reward, V1 ~ time + Error(SUBID/time))
 summary(aov)
@@ -147,80 +121,95 @@ summary(aov)
 test <- lmer(V1 ~ time + (1|SUBID), data=mpfc_reward)
 anova(test)
 
+#REWARD-REWARD -- HIGHLIGHT MCI?
 childhood_reward$time <- "Childhood"
-childhood_reward$SUBID <- seq(1:25)
+childhood_reward$CONN_ID <- seq(1:30)
 adolescence_reward$time <- "Adolescence"
-adolescence_reward$SUBID <- seq(1:25)
-youngadulthood_reward$time <- "youngadulthood"
-youngadulthood_reward$SUBID <- seq(1:25)
+adolescence_reward$CONN_ID <- seq(1:30)
 adult_reward$time <- "Adulthood"
-adult_reward$SUBID <- seq(1:25)
-reward <- rbind(childhood_mpfc_reward, adolescence_mpfc_reward,youngadulthood_mpfc_reward,
-                              adult_mpfc_reward)
+adult_reward$CONN_ID <- seq(1:30)
+reward <- rbind(childhood_reward, adolescence_reward,
+                              adult_reward)
+reward <- merge(reward, key, by = "CONN_ID")
+
 test <- lmer(V1 ~ time + (1|SUBID), data=reward)
 anova(test)
 
+ggplot(data=reward, aes(x=time, y=V1)) +
+  stat_summary(fun.data = 'mean_se', geom = 'errorbar', width = 0.2) +
+  stat_summary(fun.data = 'mean_se', geom = 'pointrange') +
+  scale_x_discrete(labels=c("Childhood (0-12)", "Adolescence (13-18)",
+                            "Adulthood (26-45)")) +
+  ylab("Average Fisher-Transformed Correlation Coefficient") +
+  xlab("Developmental Time Period") +
+        theme(
+    axis.title.x = element_text(size=18, family="Arial",face="bold"),
+    axis.title.y = element_text(size=18, family="Arial", face="bold"),
+    axis.text.y = element_text(size=14, family="Arial"), 
+    axis.text.x = element_text(size=14, family="Arial"),
+    strip.text.x = element_text(size=12,family="Arial")
+  ) +
+   facet_grid(~cognitive_health)
 
-childhood_mpfc_nac$time <- "Childhood"
-childhood_mpfc_nac$SUBID <- seq(1:25)
-adolescence_mpfc_nac$time <- "Adolescence"
-adolescence_mpfc_nac$SUBID <- seq(1:25)
-youngadulthood_mpfc_nac$time <- "youngadulthood"
-youngadulthood_mpfc_nac$SUBID <- seq(1:25)
-adult_mpfc_nac$time <- "Adulthood"
-adult_mpfc_nac$SUBID <- seq(1:25)
+#AUDITORY - REWARD --> highlight MCI
+childhood_reward_auditory$time <- "Childhood"
+childhood_reward_auditory$CONN_ID <- seq(1:30)
+adolescence_reward_auditory$time <- "Adolescence"
+adolescence_reward_auditory$CONN_ID <- seq(1:30)
+adult_reward_auditory$time <- "Adulthood"
+adult_reward_auditory$CONN_ID <- seq(1:30)
+reward_auditory <- rbind(childhood_reward_auditory, adolescence_reward_auditory,
+                              adult_reward_auditory)
+reward_auditory <- merge(reward_auditory, key, by = "CONN_ID")
 
-mpfc_nac <- rbind(childhood_mpfc_nac, adolescence_mpfc_nac,youngadulthood_mpfc_nac,
-                              adult_mpfc_nac)
-
-test <- lm(V1 ~ time + (1|SUBID), data=mpfc_nac)
+test <- lmer(V1 ~ time + (1|SUBID), data=reward_auditory)
 anova(test)
 
-aov <- aov(data=mpfc_nac, V1 ~ time + Error(SUBID/time))
-summary(aov)
+reward_auditory<-
+  ggplot(data=reward_auditory, aes(x=time, y=V1)) +
+  stat_summary(fun.data = 'mean_se', geom = 'errorbar', width = 0.2, aes(color=time)) +
+  stat_summary(fun.data = 'mean_se', geom = 'pointrange',aes(color=time)) +
+  scale_x_discrete(labels=c("Childhood\n(0-12)", "Adolescence\n(13-18)",
+                            "Adulthood\n(26-45)")) +
+  ylab("Average Fisher-Transformed\nCorrelation Coefficient") +
+  xlab("Developmental Time Period") +
+   facet_grid(~cognitive_health) +
+  theme_classic()+
+  theme(legend.position = "none") +
+  xlab("Age of Exposure")+
+  theme(axis.text=element_text(size=20, face="bold"), axis.title=element_text(size=20,face="bold"), strip.text.x = element_text(size=18,face="bold"), title = element_text(size=22, face="bold")) +
+  ggtitle("Average Auditory-Reward Network Connectivity")
 
-childhood_mpfc_str$time <- "Childhood"
-childhood_mpfc_str$SUBID <- seq(1:25)
-adolescence_mpfc_str$time <- "Adolescence"
-adolescence_mpfc_str$SUBID <- seq(1:25)
-youngadulthood_mpfc_str$time <- "youngadulthood"
-youngadulthood_mpfc_str$SUBID <- seq(1:25)
-adult_mpfc_str$time <- "Adulthood"
-adult_mpfc_str$SUBID <- seq(1:25)
+ggsave(reward_auditory, file="reward_auditory.png", dpi=350, width=12)
 
-mpfc_str <- rbind(childhood_mpfc_str, adolescence_mpfc_str,youngadulthood_mpfc_str,
-                              adult_mpfc_str)
 
-test <- lmer(V1 ~ time + (1|SUBID), data=mpfc_str)
+#AUDITORY - AUDITORY
+childhood_auditory$time <- "Childhood"
+childhood_auditory$CONN_ID <- seq(1:30)
+adolescence_auditory$time <- "Adolescence"
+adolescence_auditory$CONN_ID <- seq(1:30)
+adult_auditory$time <- "Adulthood"
+adult_auditory$CONN_ID <- seq(1:30)
+auditory <- rbind(childhood_auditory, adolescence_auditory,
+                              adult_auditory)
+auditory <- merge(auditory, key, by = "CONN_ID")
+
+test <- lmer(V1 ~ time + (1|SUBID), data=auditory)
 anova(test)
 
-childhood_auditory_str$time <- "Childhood"
-childhood_auditory_str$SUBID <- seq(1:25)
-adolescence_auditory_str$time <- "Adolescence"
-adolescence_auditory_str$SUBID <- seq(1:25)
-youngadulthood_auditory_str$time <- "youngadulthood"
-youngadulthood_auditory_str$SUBID <- seq(1:25)
-adult_auditory_str$time <- "Adulthood"
-adult_auditory_str$SUBID <- seq(1:25)
-
-auditory_str <- rbind(childhood_auditory_str, adolescence_auditory_str,youngadulthood_auditory_str,
-                              adult_auditory_str)
-
-test <- lmer(V1 ~ time + (1|SUBID), data=auditory_str)
-anova(test)
-
-childhood_auditory_nac$time <- "Childhood"
-childhood_auditory_nac$SUBID <- seq(1:25)
-adolescence_auditory_nac$time <- "Adolescence"
-adolescence_auditory_nac$SUBID <- seq(1:25)
-youngadulthood_auditory_nac$time <- "youngadulthood"
-youngadulthood_auditory_nac$SUBID <- seq(1:25)
-adult_auditory_nac$time <- "Adulthood"
-adult_auditory_nac$SUBID <- seq(1:25)
-
-auditory_nac <- rbind(childhood_auditory_nac, adolescence_auditory_nac,youngadulthood_auditory_nac,
-                              adult_auditory_nac)
-
-test <- lmer(V1 ~ time + (1|SUBID), data=auditory_str)
-anova(test)
+ggplot(data=auditory, aes(x=time, y=V1)) +
+  stat_summary(fun.data = 'mean_se', geom = 'errorbar', width = 0.2) +
+  stat_summary(fun.data = 'mean_se', geom = 'pointrange') +
+  scale_x_discrete(labels=c("Childhood (0-12)", "Adolescence (13-18)",
+                            "Adulthood (26-45)")) +
+  ylab("Average Fisher-Transformed Correlation Coefficient") +
+  xlab("Developmental Time Period") +
+        theme(
+    axis.title.x = element_text(size=18, family="Arial",face="bold"),
+    axis.title.y = element_text(size=18, family="Arial", face="bold"),
+    axis.text.y = element_text(size=14, family="Arial"), 
+    axis.text.x = element_text(size=14, family="Arial"),
+    strip.text.x = element_text(size=12,family="Arial")
+  ) +
+   facet_grid(~cognitive_health)
 ```
