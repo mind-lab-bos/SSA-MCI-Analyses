@@ -3,6 +3,11 @@ let soundLoop = new p5.SoundLoop(onSoundLoop, intervalInSeconds);
 let synth = new p5.MonoSynth();
 
 function playGrid() {
+  // retrieve the note pattern from the grid
+  grid.getNotePattern();
+
+  console.log(grid.notePattern);
+
   // ensure audio is enabled
   userStartAudio();
 
@@ -16,16 +21,22 @@ function playGrid() {
 
 function onSoundLoop(timeFromNow) {
   let noteIndex = (soundLoop.iterations - 1) % grid.notePattern.length;
+
   if (!noteIndex) {
-    console.log('LOOP STARTING:')
+    console.log('LOOP STARTING:');
   }
-  let note = grid.notePattern[noteIndex]
+
+  let note = grid.notePattern[noteIndex];
+
   if (note) {
-    console.log('MIDI: ' + note)
+    console.log('MIDI: ' + note);
   }
+
   note = midiToFreq(note);
+
   if (note > 100) {
-    console.log('Freq: ' + note)
+    console.log('Freq: ' + note);
   }
+
   synth.play(note, 0.5, timeFromNow);
 }
