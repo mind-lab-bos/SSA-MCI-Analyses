@@ -21,6 +21,14 @@ const INTERVAL2 = 1.33
 const INTERVAL3 = 1.47
 const EQUALINTERVAL = 1.463
 const OCTAVE = 19.02
+
+async function setupAudioWorklet() {
+  await audioContext.audioWorklet.addModule('js/sound-file-processor.js');
+  await audioContext.audioWorklet.addModule('js/amplitude-processor.js');
+}
+
+setupAudioWorklet();
+
 // noteSeries[0] = 60;
 // noteSeries[1] = INTERVAL1 + noteSeries[0]
 // noteSeries[2] = INTERVAL2 + noteSeries[1]
@@ -83,28 +91,4 @@ function setup() {
   }
 
 // function check_columnSelected(column){
-//   for (let i = 0; i < numSquares; i++){
-//     if (selected[column][i]){
-//       return true;
-//     }
-//   }
-// }
-
-// function clearColumn(column){
-//   for (let i = 0; i < numSquares; i++){
-//     rect(column*squareLength, i*squareLength,rectSize,rectSize)
-//     selected[column][i] = false
-//   }
-//     stroke('red')
-//     line(halfBoard*squareLength,0,halfBoard*squareLength,cnvSIZE)
-//     stroke('black')
-// }
-// function clearGrid(){
-//   for (let j = 0; j < numSquares; j++){
-//     clearColumn(j)
-//   }
-// }
-
-
-
-
+//   for (let
