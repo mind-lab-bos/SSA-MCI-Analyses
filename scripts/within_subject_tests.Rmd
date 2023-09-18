@@ -33,8 +33,15 @@ childhood_reward <- read.table(file='childhood_reward_participant_mean.csv')
 adolescence_reward <- read.table(file='adolescence_reward_participant_mean.csv')
 adult_reward <- read.table(file='adulthood_reward_participant_mean.csv')
 
+childhood_hc_nac <- read.table(file='childhood_hc_nac_mean.csv')
+adolescence_hc_nac <- read.table(file='adolescence_hc_nac_mean.csv')
+adulthood_hc_nac <- read.table(file='adulthood_hc_nac_mean.csv')
+
 key <- read.csv(file="participant_key.csv")
 key$cognitive_health = ifelse(key$cognitive_health=="Healthy","Cognitively Healthy", key$cognitive_health) #recoding some values
+
+
+
 
 ```
 
@@ -42,11 +49,11 @@ key$cognitive_health = ifelse(key$cognitive_health=="Healthy","Cognitively Healt
 ```{r}
 #MPFC - AUDITORY
 childhood_mpfc_auditory$time <- "Childhood"
-childhood_mpfc_auditory$CONN_ID <- seq(1:30)
+childhood_mpfc_auditory$CONN_ID <- seq(1:35)
 adolescence_mpfc_auditory$time <- "Adolescence"
-adolescence_mpfc_auditory$CONN_ID <- seq(1:30)
+adolescence_mpfc_auditory$CONN_ID <- seq(1:35)
 adult_mpfc_auditory$time <- "Adulthood"
-adult_mpfc_auditory$CONN_ID <- seq(1:30)
+adult_mpfc_auditory$CONN_ID <- seq(1:35)
 mpfc_auditory <- rbind(childhood_mpfc_auditory, adolescence_mpfc_auditory,
                               adult_mpfc_auditory)
 mpfc_auditory <- merge(mpfc_auditory, key, by = "CONN_ID")
@@ -70,7 +77,7 @@ summary(aov)
 test <- lmer(V1 ~ time + (1|SUBID), data=mpfc_auditory)
 anova(test)
 test.m <- emmeans::emmeans(test, ~time)
-A2= c(-1, 3, -1, -1)
+A2= c(-1, 2, -1)
 emmeans::contrast(test.m, method = list(A2), lmer.df = "satterthwaite")
 
 
@@ -88,16 +95,18 @@ summary(aov)
 
 #MPFC - REWARD (HIGHLIGHT!!)
 childhood_mpfc_reward$time <- "Childhood"
-childhood_mpfc_reward$CONN_ID <- seq(1:30)
+childhood_mpfc_reward$CONN_ID <- seq(1:35)
 adolescence_mpfc_reward$time <- "Adolescence"
-adolescence_mpfc_reward$CONN_ID <- seq(1:30)
+adolescence_mpfc_reward$CONN_ID <- seq(1:35)
 adult_mpfc_reward$time <- "Adulthood"
-adult_mpfc_reward$CONN_ID <- seq(1:30)
+adult_mpfc_reward$CONN_ID <- seq(1:35)
 mpfc_reward <- rbind(childhood_mpfc_reward, adolescence_mpfc_reward,
                               adult_mpfc_reward)
 mpfc_reward <- merge(mpfc_reward, key, by = "CONN_ID")
 
-mpfc_rewardplot<-
+group.colors <- c(Adolescence ="#00BA38" , Childhood = "#619CFF", Adulthood ="#F8766D")
+
+mpfc_rewardplot<- ##MIGHT BE WORTH
   ggplot(data=mpfc_reward, aes(x=time, y=V1)) +
   stat_summary(fun.data = 'mean_se', geom = 'errorbar', width = 0.2, aes(color=time)) +
   stat_summary(fun.data = 'mean_se', geom = 'pointrange', aes(color=time)) +
@@ -110,7 +119,8 @@ mpfc_rewardplot<-
   theme(legend.position = "none") +
   xlab("Age of Exposure")+
   theme(axis.text=element_text(size=20, face="bold"), axis.title=element_text(size=20,face="bold"), strip.text.x = element_text(size=18,face="bold"), title = element_text(size=22, face="bold")) +
-  ggtitle("Average mPFC-Reward Network Connectivity")
+  ggtitle("Average mPFC-Reward Network Connectivity") +
+    scale_color_manual(values=group.colors)
 
 ggsave(mpfc_rewardplot, file="mpfc_reward.png", dpi=350, width=12)
 
@@ -121,13 +131,13 @@ summary(aov)
 test <- lmer(V1 ~ time + (1|SUBID), data=mpfc_reward)
 anova(test)
 
-#REWARD-REWARD -- HIGHLIGHT MCI?
+#REWARD-REWARD -- HIGHLIGHT MCI???
 childhood_reward$time <- "Childhood"
-childhood_reward$CONN_ID <- seq(1:30)
+childhood_reward$CONN_ID <- seq(1:35)
 adolescence_reward$time <- "Adolescence"
-adolescence_reward$CONN_ID <- seq(1:30)
+adolescence_reward$CONN_ID <- seq(1:35)
 adult_reward$time <- "Adulthood"
-adult_reward$CONN_ID <- seq(1:30)
+adult_reward$CONN_ID <- seq(1:35)
 reward <- rbind(childhood_reward, adolescence_reward,
                               adult_reward)
 reward <- merge(reward, key, by = "CONN_ID")
@@ -135,29 +145,33 @@ reward <- merge(reward, key, by = "CONN_ID")
 test <- lmer(V1 ~ time + (1|SUBID), data=reward)
 anova(test)
 
-ggplot(data=reward, aes(x=time, y=V1)) +
-  stat_summary(fun.data = 'mean_se', geom = 'errorbar', width = 0.2) +
-  stat_summary(fun.data = 'mean_se', geom = 'pointrange') +
-  scale_x_discrete(labels=c("Childhood (0-12)", "Adolescence (13-18)",
-                            "Adulthood (26-45)")) +
-  ylab("Average Fisher-Transformed Correlation Coefficient") +
-  xlab("Developmental Time Period") +
-        theme(
-    axis.title.x = element_text(size=18, family="Arial",face="bold"),
-    axis.title.y = element_text(size=18, family="Arial", face="bold"),
-    axis.text.y = element_text(size=14, family="Arial"), 
-    axis.text.x = element_text(size=14, family="Arial"),
-    strip.text.x = element_text(size=12,family="Arial")
-  ) +
-   facet_grid(~cognitive_health)
+reward_reward <- 
+ggplot(data=reward, aes(x=time, y=V1))+
+  stat_summary(fun.data = 'mean_se', geom = 'errorbar', width = 0.2, aes(color=time)) +
+  stat_summary(fun.data = 'mean_se', geom = 'pointrange', aes(color=time)) +
+  scale_x_discrete(labels=c("Childhood\n(0-12)", "Adolescence\n(13-18)",
+                            "Adulthood\n(26-45)")) +
+  ylab("Average Fisher-Transformed\nCorrelation Coefficient") +
+  xlab("Developmental Time Period")  + 
+  facet_grid(~cognitive_health) + 
+ theme_classic()+
+  theme(legend.position = "none") +
+  xlab("Age of Exposure")+
+  theme(axis.text=element_text(size=20, face="bold"), axis.title=element_text(size=20,face="bold"), strip.text.x = element_text(size=18,face="bold"), title = element_text(size=22, face="bold")) +
+  ggtitle("Average Within-Reward Network Connectivity") +
+    scale_color_manual(values=group.colors)
+
+ggsave(reward_reward, file="reward_reward.png", dpi=350, width=12)
+
+
 
 #AUDITORY - REWARD --> highlight MCI
 childhood_reward_auditory$time <- "Childhood"
-childhood_reward_auditory$CONN_ID <- seq(1:30)
+childhood_reward_auditory$CONN_ID <- seq(1:35)
 adolescence_reward_auditory$time <- "Adolescence"
-adolescence_reward_auditory$CONN_ID <- seq(1:30)
+adolescence_reward_auditory$CONN_ID <- seq(1:35)
 adult_reward_auditory$time <- "Adulthood"
-adult_reward_auditory$CONN_ID <- seq(1:30)
+adult_reward_auditory$CONN_ID <- seq(1:35)
 reward_auditory <- rbind(childhood_reward_auditory, adolescence_reward_auditory,
                               adult_reward_auditory)
 reward_auditory <- merge(reward_auditory, key, by = "CONN_ID")
@@ -178,18 +192,20 @@ reward_auditory<-
   theme(legend.position = "none") +
   xlab("Age of Exposure")+
   theme(axis.text=element_text(size=20, face="bold"), axis.title=element_text(size=20,face="bold"), strip.text.x = element_text(size=18,face="bold"), title = element_text(size=22, face="bold")) +
-  ggtitle("Average Auditory-Reward Network Connectivity")
+  ggtitle("Average Auditory-Reward Network Connectivity") +
+        scale_color_manual(values=group.colors)
+
 
 ggsave(reward_auditory, file="reward_auditory.png", dpi=350, width=12)
 
 
 #AUDITORY - AUDITORY
 childhood_auditory$time <- "Childhood"
-childhood_auditory$CONN_ID <- seq(1:30)
+childhood_auditory$CONN_ID <- seq(1:35)
 adolescence_auditory$time <- "Adolescence"
-adolescence_auditory$CONN_ID <- seq(1:30)
+adolescence_auditory$CONN_ID <- seq(1:35)
 adult_auditory$time <- "Adulthood"
-adult_auditory$CONN_ID <- seq(1:30)
+adult_auditory$CONN_ID <- seq(1:35)
 auditory <- rbind(childhood_auditory, adolescence_auditory,
                               adult_auditory)
 auditory <- merge(auditory, key, by = "CONN_ID")
@@ -211,5 +227,32 @@ ggplot(data=auditory, aes(x=time, y=V1)) +
     axis.text.x = element_text(size=14, family="Arial"),
     strip.text.x = element_text(size=12,family="Arial")
   ) +
+   facet_grid(~cognitive_health)
+
+#NAC-HC
+childhood_hc_nac <- read.table(file='childhood_hc_nac_mean.csv')
+adolescence_hc_nac <- read.table(file='adolescence_hc_nac_mean.csv')
+adulthood_hc_nac <- read.table(file='adulthood_hc_nac_mean.csv')
+
+childhood_hc_nac$time <- "Childhood"
+childhood_hc_nac$CONN_ID <- seq(1:35)
+adolescence_hc_nac$time <- "Adolescence"
+adolescence_hc_nac$CONN_ID <- seq(1:35)
+adulthood_hc_nac$time <- "Adulthood"
+adulthood_hc_nac$CONN_ID <- seq(1:35)
+nac_hc <- rbind(childhood_hc_nac, adolescence_hc_nac,
+                              adulthood_hc_nac)
+nac_hc <- merge(nac_hc, key, by = "CONN_ID")
+
+nac_hc$time <- factor(nac_hc$time, levels = c("Childhood", "Adolescence", "Adulthood"))
+
+
+  ggplot(data=nac_hc, aes(x=time, y=V1)) +
+  stat_summary(fun.data = 'mean_se', geom = 'errorbar', width = 0.2) +
+  stat_summary(fun.data = 'mean_se', geom = 'pointrange') +
+  scale_x_discrete(labels=c("Childhood (0-12)", "Adolescence (13-18)",
+                            "Adulthood (26-45)")) +
+  ylab("Average Fisher-Transformed Correlation Coefficient") +
+  xlab("Developmental Time Period")+
    facet_grid(~cognitive_health)
 ```

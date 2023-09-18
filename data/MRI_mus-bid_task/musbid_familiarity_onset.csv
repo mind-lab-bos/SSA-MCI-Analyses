@@ -351,4 +351,7 @@
 221103EKAS1,Familiarity,Unfamiliar,241,,,,,,,,,,,,,,,,,,,,,,,
 221103EKAS1,Familiarity,Familiar,421,1141,,,,,,,,,,,,,,,,,,,,,,
 221103EKAS1,Familiarity,VeryFamiliar,301,541,721,841,901,961,1081,1201,1321,1381,,,,,,,,,,,,,,
+221103EKAS3,Familiarity,Unfamiliar,121,961,1081,1201,1261,1321,1381,,,,,,,,,,,,,,,,,
+221103EKAS3,Familiarity,Familiar,301,361,481,721,781,841,901,1021,,,,,,,,,,,,,,,,
+221103EKAS3,Familiarity,VeryFamiliar,1,61,181,241,421,541,601,661,1141,,,,,,,,,,,,,,,
 READMREADME.txt,Familiarity,,1,,,,,,,,,,,,,,,,,,,,,,,

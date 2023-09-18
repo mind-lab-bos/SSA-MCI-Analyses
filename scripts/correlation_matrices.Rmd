@@ -14,9 +14,9 @@ library(ggsignif)
 
 #read in data
 ```{r}
-childhood <- read.csv(file='childhoodconnectivity.csv')
-adolescence <- read.csv(file='adolescentconnectivity.csv')
-adulthood <- read.csv(file='adulthoodconnectivity.csv')
+childhood <- read.csv(file='childhoodaverageconnectivity.csv')
+adolescence <- read.csv(file='adolescentaverageconnectivity.csv')
+adulthood <- read.csv(file='adulthoodaverageconnectivity.csv')
 ```
 
 
