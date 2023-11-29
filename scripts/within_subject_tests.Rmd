@@ -9,6 +9,7 @@ output: html_document
 library(tidyverse)
 library(lme4)
 library(lmerTest)
+library(emmeans)
 ```
 
 #read in data
@@ -39,10 +40,6 @@ adulthood_hc_nac <- read.table(file='adulthood_hc_nac_mean.csv')
 
 key <- read.csv(file="participant_key.csv")
 key$cognitive_health = ifelse(key$cognitive_health=="Healthy","Cognitively Healthy", key$cognitive_health) #recoding some values
-
-
-
-
 ```
 
 #cleaning
@@ -106,7 +103,7 @@ mpfc_reward <- merge(mpfc_reward, key, by = "CONN_ID")
 
 group.colors <- c(Adolescence ="#00BA38" , Childhood = "#619CFF", Adulthood ="#F8766D")
 
-mpfc_rewardplot<- ##MIGHT BE WORTH
+#mpfc_rewardplot<- ##MIGHT BE WORTH
   ggplot(data=mpfc_reward, aes(x=time, y=V1)) +
   stat_summary(fun.data = 'mean_se', geom = 'errorbar', width = 0.2, aes(color=time)) +
   stat_summary(fun.data = 'mean_se', geom = 'pointrange', aes(color=time)) +
@@ -124,11 +121,7 @@ mpfc_rewardplot<- ##MIGHT BE WORTH
 
 ggsave(mpfc_rewardplot, file="mpfc_reward.png", dpi=350, width=12)
 
-
-aov <- aov(data=mpfc_reward, V1 ~ time + Error(SUBID/time))
-summary(aov)
-
-test <- lmer(V1 ~ time + (1|SUBID), data=mpfc_reward)
+test <- lmer(V1 ~ time*cognitive_health + (1|SUBID), data=mpfc_reward)
 anova(test)
 
 #REWARD-REWARD -- HIGHLIGHT MCI???
@@ -142,10 +135,18 @@ reward <- rbind(childhood_reward, adolescence_reward,
                               adult_reward)
 reward <- merge(reward, key, by = "CONN_ID")
 
-test <- lmer(V1 ~ time + (1|SUBID), data=reward)
-anova(test)
+test <- lmer((V1) ~ time + (1|SUBID), data=reward)
+  
+summary(test)
 
-reward_reward <- 
+reward_justMCI <- subset(reward, cognitive_health=="MCI/SCD")
+test <- lmer(V1 ~ time + (1|SUBID), data=reward_justMCI)
+
+emm_s.t <- emmeans(test, pairwise ~ time | cognitive_health,lmer.df = "satterthwaite",lmerTest.limit = 4320)
+contrast(emm_s.t[[1]],interaction = c("poly")) #this gives us simple slopes
+contrast(emm_s.t[[1]],interaction = c("poly", "consec"), by = NULL) #this gives us the interaction contrast
+
+#reward_reward <- 
 ggplot(data=reward, aes(x=time, y=V1))+
   stat_summary(fun.data = 'mean_se', geom = 'errorbar', width = 0.2, aes(color=time)) +
   stat_summary(fun.data = 'mean_se', geom = 'pointrange', aes(color=time)) +
@@ -176,10 +177,10 @@ reward_auditory <- rbind(childhood_reward_auditory, adolescence_reward_auditory,
                               adult_reward_auditory)
 reward_auditory <- merge(reward_auditory, key, by = "CONN_ID")
 
-test <- lmer(V1 ~ time + (1|SUBID), data=reward_auditory)
+test <- lmer(V1 ~ time*cognitive_health + (1|SUBID), data=reward_auditory)
 anova(test)
 
-reward_auditory<-
+#reward_auditory<-
   ggplot(data=reward_auditory, aes(x=time, y=V1)) +
   stat_summary(fun.data = 'mean_se', geom = 'errorbar', width = 0.2, aes(color=time)) +
   stat_summary(fun.data = 'mean_se', geom = 'pointrange',aes(color=time)) +
